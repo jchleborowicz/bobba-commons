@@ -54,14 +54,12 @@ public final class PropertiesUtil {
     }
 
     private static Object replacePlaceholders(final String value, final Properties properties) {
-        return VariableReplace.replaceVariables(value, new VariableReplace.VariableReplaceCallback() {
-            public String replace(String variableText) {
-                notNull(variableText, "Variable name cannot be null");
-                if (!properties.containsKey(variableText)) {
-                    throw new RuntimeException("Variable \"" + variableText + "\" does not exist");
-                }
-                return StringUtils.defaultString(properties.getProperty(variableText));
+        return VariableReplace.replaceVariables(value, (String variableText) -> {
+            notNull(variableText, "Variable name cannot be null");
+            if (!properties.containsKey(variableText)) {
+                throw new RuntimeException("Variable \"" + variableText + "\" does not exist");
             }
+            return StringUtils.defaultString(properties.getProperty(variableText));
         });
     }
 

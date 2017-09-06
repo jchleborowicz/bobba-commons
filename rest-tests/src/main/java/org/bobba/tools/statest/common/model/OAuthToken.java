@@ -1,44 +1,26 @@
 package org.bobba.tools.statest.common.model;
 
 import com.jayway.restassured.response.Header;
-import org.joda.time.LocalDateTime;
+import lombok.Value;
 
 import java.io.Serializable;
+import java.time.Instant;
 
+@Value
 public final class OAuthToken implements Serializable {
 
     private final String username;
     private final String token;
-    private final LocalDateTime tokenCreationTime;
+    private final Instant tokenCreationTime;
 
-    public OAuthToken(String username, String token, LocalDateTime tokenCreationTime) {
+    public OAuthToken(String username, String token, Instant tokenCreationTime) {
         this.username = username;
         this.token = token;
         this.tokenCreationTime = tokenCreationTime;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public LocalDateTime getTokenCreationTime() {
-        return tokenCreationTime;
     }
 
     public Header createHeader() {
         return new Header("Authorization", "OAuth " + token);
     }
 
-    @Override
-    public String toString() {
-        return "OAuthToken{" +
-                "username='" + username + '\'' +
-                ", token='" + token + '\'' +
-                ", tokenCreationTime=" + tokenCreationTime +
-                '}';
-    }
 }

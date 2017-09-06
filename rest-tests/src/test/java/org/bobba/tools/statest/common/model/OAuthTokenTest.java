@@ -1,15 +1,15 @@
 package org.bobba.tools.statest.common.model;
 
 import com.jayway.restassured.response.Header;
-import org.joda.time.LocalDateTime;
 import org.junit.Test;
+
+import java.time.Instant;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class OAuthTokenTest {
 
-    private final OAuthToken oAuthToken =
-            new OAuthToken("jack", "aToken", LocalDateTime.parse("2017-09-06T21:40:14.038"));
+    private final OAuthToken oAuthToken = new OAuthToken("jack", "aToken", Instant.now());
 
     @Test
     public void testCreatesOauthHeader() {

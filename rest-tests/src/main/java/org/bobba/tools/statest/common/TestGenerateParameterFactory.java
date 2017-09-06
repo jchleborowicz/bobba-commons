@@ -14,7 +14,7 @@ public class TestGenerateParameterFactory implements CustomParameterFactory<Test
     private static final Logger LOGGER = LoggerFactory.getLogger(TestGenerateParameterFactory.class);
 
     private static final Map<Class<?>, ParameterValueGenerator<?>> PARAMETER_GENERATORS =
-            ImmutableMap.<Class<?>, ParameterValueGenerator<?>>of(
+            ImmutableMap.of(
                     Integer.class, new IntegerParameterGenerator()
             );
 

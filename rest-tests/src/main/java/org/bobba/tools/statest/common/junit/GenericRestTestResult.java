@@ -9,7 +9,7 @@ import static org.apache.commons.lang3.Validate.notNull;
 
 public class GenericRestTestResult implements Iterable<GenericRestTestResult.Entry> {
 
-    private List<Entry> entries = new ArrayList<Entry>();
+    private List<Entry> entries = new ArrayList<>();
 
     public GenericRestTestResult() {
     }

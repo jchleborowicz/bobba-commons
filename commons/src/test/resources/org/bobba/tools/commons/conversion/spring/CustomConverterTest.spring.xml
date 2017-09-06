@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:c="http://www.bobba.org/schema/conversion"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.bobba.org/schema/conversion http://www.bobba.org/schema/conversion/conversion.xsd">
+
+    <c:enumConverter id="errorCodeConverter"
+                     sourceEnumClass="java.lang.annotation.RetentionPolicy"
+                     targetEnumClass="java.lang.annotation.ElementType">
+        <c:map source="SOURCE" target="TYPE"/>
+        <c:map source="CLASS" target="FIELD"/>
+    </c:enumConverter>
+
+</beans>

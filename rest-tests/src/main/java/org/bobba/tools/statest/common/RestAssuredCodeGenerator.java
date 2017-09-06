@@ -67,7 +67,7 @@ public final class RestAssuredCodeGenerator {
 
     private static final class AssertionBuilder {
 
-        private final List<String> lines = new ArrayList<String>();
+        private final List<String> lines = new ArrayList<>();
 
         private NodeHandlerFactory nodeHandlerFactory = createNodeHandlerFactory();
 
@@ -142,7 +142,7 @@ public final class RestAssuredCodeGenerator {
             @Override
             public String generateAssertions(String context, ObjectNode node, NodeHandlerFactory nodeHandlerFactory) {
                 final Iterator<Map.Entry<String, JsonNode>> iterator = node.fields();
-                final List<String> result = new ArrayList<String>();
+                final List<String> result = new ArrayList<>();
                 if (StringUtils.isNotEmpty(context)) {
                     result.add(createBodyText(context, "notNullValue()"));
                 }
@@ -172,7 +172,7 @@ public final class RestAssuredCodeGenerator {
         private static class ArrayNodeHandler implements NodeHandler<ArrayNode> {
             @Override
             public String generateAssertions(String context, ArrayNode node, NodeHandlerFactory nodeHandlerFactory) {
-                final List<String> result = new ArrayList<String>();
+                final List<String> result = new ArrayList<>();
                 final String simpleContext = StringUtils.defaultIfEmpty(context, "$");
                 result.add(createBodyText(simpleContext, "notNullValue()"));
                 result.add(createBodyText(simpleContext + ".size()", "is(" + node.size() + ")"));

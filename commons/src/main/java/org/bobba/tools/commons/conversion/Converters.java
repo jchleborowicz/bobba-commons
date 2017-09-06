@@ -15,12 +15,7 @@ public final class Converters {
     }
 
     public static <S> SimpleUnidirectionalConverter<S, S> sameObjectConverter() {
-        return new SimpleUnidirectionalConverter<S, S>() {
-            @Override
-            public S convert(S source) {
-                return source;
-            }
-        };
+        return source -> source;
     }
 
     public static <SOURCE_KEY, SOURCE_VALUE, TARGET_KEY, TARGET_VALUE> Map<TARGET_KEY, TARGET_VALUE> convertOptionalMap(
@@ -104,16 +99,11 @@ public final class Converters {
 
         final SimpleUnidirectionalConverter<Map.Entry<SOURCE_KEY, SOURCE_VALUE>, Map.Entry<TARGET_KEY, TARGET_VALUE>>
                 entryConverter =
-                new SimpleUnidirectionalConverter<Map.Entry<SOURCE_KEY, SOURCE_VALUE>,
-                        Map.Entry<TARGET_KEY, TARGET_VALUE>>() {
-                    @Override
-                    public Map.Entry<TARGET_KEY, TARGET_VALUE> convert(Map.Entry<SOURCE_KEY, SOURCE_VALUE> source)
-                            throws Exception {
-                        final TARGET_KEY key = keyConverter.convert(source.getKey());
-                        final TARGET_VALUE value = valueConverter.convert(source.getValue());
+                (Map.Entry<SOURCE_KEY, SOURCE_VALUE> source) -> {
+                    final TARGET_KEY key = keyConverter.convert(source.getKey());
+                    final TARGET_VALUE value = valueConverter.convert(source.getValue());
 
-                        return new AbstractMap.SimpleEntry<TARGET_KEY, TARGET_VALUE>(key, value);
-                    }
+                    return new AbstractMap.SimpleEntry<>(key, value);
                 };
 
         return newMapConverter(entryConverter, nullSourceAllowed, nullSourceMapping);
@@ -140,13 +130,8 @@ public final class Converters {
         if (sourceList == null) {
             return null;
         }
-        final ArrayList<T> result = new ArrayList<T>();
-        convertList(sourceList, elementConverter, new ElementConversionCallback<T>() {
-            @Override
-            public void onConvertedElement(T target) {
-                result.add(target);
-            }
-        });
+        final ArrayList<T> result = new ArrayList<>();
+        convertList(sourceList, elementConverter, result::add);
         return result;
     }
 
@@ -170,7 +155,7 @@ public final class Converters {
     }
 
     public static <S, T> Map.Entry<S, T> createSimpleMapEntry(S targetKey, T targetValue) {
-        return new AbstractMap.SimpleEntry<S, T>(targetKey, targetValue);
+        return new AbstractMap.SimpleEntry<>(targetKey, targetValue);
     }
 
     @SuppressWarnings("unchecked")
@@ -183,11 +168,11 @@ public final class Converters {
     MapConverterBuilder<SOURCE_KEY, SOURCE_VALUE, TARGET_KEY, TARGET_VALUE> newMapConverter(
             SimpleUnidirectionalConverter<SOURCE_KEY, TARGET_KEY> keyConverter,
             SimpleUnidirectionalConverter<SOURCE_VALUE, TARGET_VALUE> valueConverter) {
-        return new MapConverterBuilder(null, null);
+        return new MapConverterBuilder(keyConverter, valueConverter);
     }
 
     public static <S extends Enum<S>> SimpleUnidirectionalConverter<String, S> enumConverter(Class<S> enumClass) {
-        return new StringToEnumConverter<S>(enumClass);
+        return new StringToEnumConverter<>(enumClass);
     }
 
     public interface ElementConversionCallback<T> {
@@ -230,7 +215,7 @@ public final class Converters {
         }
 
         public MapConverterBuilder<SOURCE_KEY, SOURCE_VALUE, TARGET_KEY, TARGET_VALUE> mapNullValueToEmptyMap() {
-            return mapNullValueTo(ImmutableMap.<TARGET_KEY, TARGET_VALUE>of());
+            return mapNullValueTo(ImmutableMap.of());
         }
 
         public MapConverterBuilder<SOURCE_KEY, SOURCE_VALUE, TARGET_KEY, TARGET_VALUE> mapNullValueTo(

@@ -34,9 +34,7 @@ public class RestSuiteJUnitRunner extends ParentRunner<Runner> {
             return (RestTestSuiteDefinition) method.invoke(null);
         } catch (NoSuchMethodException e) {
             throw new RuntimeException("Could not find createDefinition method in class " + testClass.getName());
-        } catch (InvocationTargetException e) {
-            throw new RuntimeException("Error when executing createDefinition method for class " + testClass.getName());
-        } catch (IllegalAccessException e) {
+        } catch (InvocationTargetException | IllegalAccessException e) {
             throw new RuntimeException("Error when executing createDefinition method for class " + testClass.getName());
         }
     }

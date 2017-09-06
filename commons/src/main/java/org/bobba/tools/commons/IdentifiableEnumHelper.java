@@ -6,7 +6,7 @@ import java.util.Map;
 public final class IdentifiableEnumHelper {
 
     public static <T extends IdentifiableEnum<S>, S> Map<S, T> create(T[] values) {
-        final Map<S, T> result = new HashMap<S, T>();
+        final Map<S, T> result = new HashMap<>();
         final Class<?> enumClass = values.getClass();
         final String enumClassName = enumClass.getName();
         for (T value : values) {

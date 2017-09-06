@@ -16,7 +16,7 @@ public final class PairMappingConverterBuilder<S, T> {
     private final Class<S> sourceType;
     private final Class<T> targetType;
 
-    private final Map<S, T> mapping = new HashMap<S, T>();
+    private final Map<S, T> mapping = new HashMap<>();
     private boolean acceptsNull;
     private T nullMapping;
     private boolean defaultedUnmappedElements;
@@ -28,7 +28,7 @@ public final class PairMappingConverterBuilder<S, T> {
     }
 
     public static <S, T> PairMappingConverterBuilder<S, T> newInstance(Class<S> sourceType, Class<T> targetType) {
-        return new PairMappingConverterBuilder<S, T>(sourceType, targetType);
+        return new PairMappingConverterBuilder<>(sourceType, targetType);
     }
 
     public PairMappingConverterBuilder<S, T> acceptsNull() {
@@ -85,7 +85,7 @@ public final class PairMappingConverterBuilder<S, T> {
     }
 
     public MapBasedSimpleConverter<S, T> build() {
-        return new MapBasedSimpleConverter<S, T>(sourceType, targetType, acceptsNull, nullMapping, mapping,
+        return new MapBasedSimpleConverter<>(sourceType, targetType, acceptsNull, nullMapping, mapping,
                 defaultedUnmappedElements, unmappedElementsMappedTo);
     }
 

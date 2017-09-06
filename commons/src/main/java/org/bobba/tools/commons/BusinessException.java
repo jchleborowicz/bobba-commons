@@ -2,7 +2,7 @@ package org.bobba.tools.commons;
 
 /**
  * Intended for errors which are shown to the user. Constructor argument is a code of error message which will be
- * interpretted by
+ * interpreted by UI code.
  */
 public class BusinessException extends RuntimeException {
 

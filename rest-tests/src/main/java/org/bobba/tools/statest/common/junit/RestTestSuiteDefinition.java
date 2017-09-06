@@ -18,7 +18,7 @@ public class RestTestSuiteDefinition {
     }
 
     public List<Runner> createRunners(final Class<?> suiteTestClass) {
-        final ArrayList<Runner> result = new ArrayList<Runner>();
+        final List<Runner> result = new ArrayList<>();
         for (TestRunnerCreator testRunnerCreator : testRunnerCreators) {
             result.add(testRunnerCreator.createRunner(suiteTestClass, idGenerator.incrementAndGet()));
         }
@@ -31,7 +31,7 @@ public class RestTestSuiteDefinition {
 
     public static final class Builder {
 
-        private final List<TestRunnerCreator> testRunnerCreators = new ArrayList<TestRunnerCreator>();
+        private final List<TestRunnerCreator> testRunnerCreators = new ArrayList<>();
 
         private Builder() {
         }

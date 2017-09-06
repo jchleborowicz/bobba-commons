@@ -49,7 +49,7 @@ public final class CommonUtils {
     }
 
     public static List<Method> getMethodsAnnotatedWith(Class<?> aClass, Class<?> annotationClass) {
-        final List<Method> result = new ArrayList<Method>();
+        final List<Method> result = new ArrayList<>();
         final Method[] declaredMethods = aClass.getMethods();
         for (Method declaredMethod : declaredMethods) {
             if (containsAnnotation(declaredMethod, annotationClass)) {

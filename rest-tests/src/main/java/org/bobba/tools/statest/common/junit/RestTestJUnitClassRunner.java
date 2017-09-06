@@ -1,6 +1,5 @@
 package org.bobba.tools.statest.common.junit;
 
-import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableListMultimap;
 import com.google.common.collect.ImmutableMap;
@@ -21,7 +20,6 @@ import java.io.File;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -46,13 +44,14 @@ public class RestTestJUnitClassRunner extends BlockJUnit4ClassRunner {
     protected List<FrameworkMethod> computeTestMethods() {
         final List<FrameworkMethod> result = getTestMethods();
 
-        Collections.sort(result, TEST_ORDER_COMPARATOR);
+        result.sort(TEST_ORDER_COMPARATOR);
+
         return ImmutableList.copyOf(result);
     }
 
     private List<FrameworkMethod> getTestMethods() {
         final List<FrameworkMethod> result =
-                new ArrayList<FrameworkMethod>(getTestClass().getAnnotatedMethods(RestTest.class));
+                new ArrayList<>(getTestClass().getAnnotatedMethods(RestTest.class));
         final List<FrameworkMethod> testAnnotatedMethods = getTestClass().getAnnotatedMethods(Test.class);
         for (FrameworkMethod testAnnotatedMethod : testAnnotatedMethods) {
             if (!result.contains(testAnnotatedMethod)) {
@@ -72,12 +71,7 @@ public class RestTestJUnitClassRunner extends BlockJUnit4ClassRunner {
     protected void validateTestMethods(List<Throwable> errors) {
         final List<FrameworkMethod> testMethods = getTestMethods();
         final ImmutableListMultimap<String, FrameworkMethod> methodsByName =
-                Multimaps.index(testMethods, new Function<FrameworkMethod, String>() {
-                    @Override
-                    public String apply(FrameworkMethod input) {
-                        return input.getName();
-                    }
-                });
+                Multimaps.index(testMethods, FrameworkMethod::getName);
         final StringBuilder errorMessage = new StringBuilder();
         for (Collection<FrameworkMethod> methods : methodsByName.asMap().values()) {
             if (methods.size() > 1) {
@@ -117,9 +111,7 @@ public class RestTestJUnitClassRunner extends BlockJUnit4ClassRunner {
                 try {
                     final CustomParameterFactory<?> customParameterFactory = parameterFactoryClass.newInstance();
                     addCustomParameterHandler(result, customParameterFactory);
-                } catch (InstantiationException e) {
-                    throw new RuntimeException(e);
-                } catch (IllegalAccessException e) {
+                } catch (InstantiationException | IllegalAccessException e) {
                     throw new RuntimeException(e);
                 }
             }

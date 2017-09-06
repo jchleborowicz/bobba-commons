@@ -1,11 +1,8 @@
 package org.bobba.tools.statest.utils;
 
 import com.google.common.base.Joiner;
-import com.google.common.base.Predicate;
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import org.bobba.tools.commons.functions.ArrayListConsumer;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -14,6 +11,7 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.lang3.StringUtils;
+import org.bobba.tools.commons.functions.ArrayListConsumer;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.RunWith;
@@ -27,8 +25,6 @@ import java.net.URL;
 import java.security.CodeSource;
 import java.security.ProtectionDomain;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
@@ -37,8 +33,10 @@ import java.util.function.Consumer;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
-import static org.bobba.tools.commons.utils.CommonUtils.getClassAnnotation;
+import static java.util.Comparator.comparing;
+import static java.util.stream.Collectors.toList;
 import static org.apache.commons.lang3.ArrayUtils.isEmpty;
+import static org.bobba.tools.commons.utils.CommonUtils.getClassAnnotation;
 
 public class RestTestRunner {
 
@@ -120,7 +118,7 @@ public class RestTestRunner {
     }
 
     private static List<Class> getTestsClasses(String[] tests) {
-        final ArrayList<Class> result = new ArrayList<Class>();
+        final ArrayList<Class> result = new ArrayList<>();
         Map<String, Class<?>> testsBySimpleName = null;
         for (String test : tests) {
             final Class<?> testClass;
@@ -189,7 +187,7 @@ public class RestTestRunner {
     }
 
     private static Iterable<Class<?>> getAllTestClasses() {
-        final ArrayListConsumer<Class<?>> consumer = new ArrayListConsumer<Class<?>>();
+        final ArrayListConsumer<Class<?>> consumer = new ArrayListConsumer<>();
 
         iterateClassesFromSameJar(RestTestRunner.class, consumer);
 
@@ -205,21 +203,14 @@ public class RestTestRunner {
             throw new RuntimeException(e);
         }
 
-        return Iterables.filter(content, new Predicate<Class<?>>() {
-            @Override
-            public boolean apply(Class<?> input) {
-                return baseRestTestClass.isAssignableFrom(input) || getClassAnnotation(input, RunWith.class) != null;
-            }
-        });
+        return content.stream()
+                .filter((Class<?> input) ->
+                        baseRestTestClass.isAssignableFrom(input) || getClassAnnotation(input, RunWith.class) != null)
+                .collect(toList());
     }
 
     private static void sortBySimpleClassName(List<Class<?>> content) {
-        Collections.sort(content, new Comparator<Class<?>>() {
-            @Override
-            public int compare(Class<?> o1, Class<?> o2) {
-                return o1.getSimpleName().compareTo(o2.getSimpleName());
-            }
-        });
+        content.sort(comparing(Class::getSimpleName));
     }
 
     private static void iterateClassesFromSameJar(Class<?> loggerClass, Consumer<Class<?>> classConsumer) {

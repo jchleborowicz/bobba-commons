@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 public class VariableReplace {
 
-    private static final Pattern VARIABLE_PATTERN = Pattern.compile("\\$\\{([^\\}]*)\\}");
+    private static final Pattern VARIABLE_PATTERN = Pattern.compile("\\$\\{([^}]*)}");
 
     public static String replaceVariables(String text, Map<String, String> variables) {
         return replaceVariables(text, variables::get);

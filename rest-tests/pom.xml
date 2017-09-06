@@ -11,6 +11,7 @@
     <artifactId>bobba-rest-tests</artifactId>
 
     <dependencies>
+        <!-- Compile -->
         <dependency>
             <groupId>bobba-commons</groupId>
             <artifactId>bobba-commons</artifactId>

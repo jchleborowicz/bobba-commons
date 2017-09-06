@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -60,9 +59,7 @@ public class FileBasedTestStateRepository implements TestStateRepository {
             }
             //noinspection unchecked
             return (T) result;
-        } catch (IOException e) {
-            throw new RuntimeException("Exception when reading file " + source, e);
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException("Exception when reading file " + source, e);
         } finally {
             if (in != null) {
@@ -94,8 +91,6 @@ public class FileBasedTestStateRepository implements TestStateRepository {
                 outputStream = new ObjectOutputStream(new FileOutputStream(file));
                 outputStream.writeObject(object);
                 LOGGER.info("Stored test state object. Id: " + objectId + ", value: " + object);
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException("Error when writing value to file " + file, e);
             } catch (IOException e) {
                 throw new RuntimeException("Error when writing value to file " + file, e);
             } finally {

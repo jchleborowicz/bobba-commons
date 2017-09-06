@@ -1,14 +1,11 @@
 package org.bobba.tools.commons.conversion;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.bobba.tools.commons.conversion.AbstractUnidirectionalConverter;
-import org.bobba.tools.commons.conversion.ConversionException;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.junit.Test;
 
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.nullValue;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class AbstractUnidirectionalConverterTest {
 
@@ -41,18 +38,18 @@ public class AbstractUnidirectionalConverterTest {
 
     @Test
     public void correctlyConvertsNotNullValues() throws Exception {
-        assertThat(converter.convert(new TestSourceClass(3)), is(new TestTargetClass("3 3")));
-        assertThat(converter.convert(new TestSourceClass(66)), is(new TestTargetClass("66 66")));
+        assertThat(converter.convert(new TestSourceClass(3))).isEqualTo(new TestTargetClass("3 3"));
+        assertThat(converter.convert(new TestSourceClass(66))).isEqualTo(new TestTargetClass("66 66"));
     }
 
     @Test
     public void returnsNullWhenNullSourceForNullAcceptingConverter() throws Exception {
-        assertThat(nullAcceptingConverter.convert(null), nullValue());
+        assertThat(nullAcceptingConverter.convert(null)).isNull();
     }
 
     @Test
     public void returnsExpectedValueWhenNullSourceForNullAcceptingConverter() throws Exception {
-        assertThat(nullAcceptingConverterReturningHello.convert(null), is(new TestTargetClass("Hello")));
+        assertThat(nullAcceptingConverterReturningHello.convert(null)).isEqualTo(new TestTargetClass("Hello"));
     }
 
     @Test(expected =  ConversionException.class)
@@ -72,46 +69,12 @@ public class AbstractUnidirectionalConverterTest {
         }
     }
 
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
     private static final class TestTargetClass {
+
         private String text;
 
-        public TestTargetClass() {
-        }
-
-        public TestTargetClass(String text) {
-            this.text = text;
-        }
-
-        public String getText() {
-            return text;
-        }
-
-        public void setText(String text) {
-            this.text = text;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) {
-                return true;
-            }
-
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-
-            TestTargetClass that = (TestTargetClass) o;
-
-            return new EqualsBuilder()
-                    .append(text, that.text)
-                    .isEquals();
-        }
-
-        @Override
-        public int hashCode() {
-            return new HashCodeBuilder(17, 37)
-                    .append(text)
-                    .toHashCode();
-        }
     }
 }

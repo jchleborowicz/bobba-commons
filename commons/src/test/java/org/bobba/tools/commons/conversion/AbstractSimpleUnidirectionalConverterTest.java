@@ -1,12 +1,8 @@
 package org.bobba.tools.commons.conversion;
 
-import org.bobba.tools.commons.conversion.AbstractSimpleUnidirectionalConverter;
-import org.bobba.tools.commons.conversion.ConversionException;
-import org.bobba.tools.commons.conversion.SimpleUnidirectionalConverter;
 import org.junit.Test;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class AbstractSimpleUnidirectionalConverterTest {
 
@@ -39,18 +35,19 @@ public class AbstractSimpleUnidirectionalConverterTest {
 
     @Test
     public void doesNotTrowsExceptionForNullAcceptingConverterWhenSourceObjectIsNull() throws Exception {
-        assertThat(nullAcceptingConverter.convert(null), is("null value"));
+        assertThat(nullAcceptingConverter.convert(null)).isEqualTo("null value");
     }
 
     @Test
     public void properlyConvertsIntegerValues() throws Exception {
-        assertThat(converter.convert(3), is("6"));
-        assertThat(converter.convert(7), is("14"));
+        assertThat(converter.convert(3)).isEqualTo("6");
+        assertThat(converter.convert(7)).isEqualTo("14");
     }
 
     @Test
     public void returnsCorrectNullSorceAllowed() {
-        assertThat(converter.isNullSourceAllowed(), is(false));
-        assertThat(nullAcceptingConverter.isNullSourceAllowed(), is(true));
+        assertThat(converter.isNullSourceAllowed()).isEqualTo(false);
+        assertThat(nullAcceptingConverter.isNullSourceAllowed()).isEqualTo(true);
     }
+
 }

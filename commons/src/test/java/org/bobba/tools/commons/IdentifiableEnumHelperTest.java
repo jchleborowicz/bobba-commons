@@ -1,23 +1,19 @@
 package org.bobba.tools.commons;
 
-import org.bobba.tools.commons.IdentifiableEnum;
-import org.bobba.tools.commons.IdentifiableEnumHelper;
-import org.bobba.tools.commons.IdentifiableEnumIdNotFoundException;
 import org.junit.Test;
 
 import java.util.Map;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class IdentifiableEnumHelperTest {
 
     @Test
     public void returnsCollectEnumItem() {
         final Map<String, TestEnum> test = IdentifiableEnumHelper.create(TestEnum.values());
-        assertThat(test.get("1"), is(TestEnum.FIRST));
-        assertThat(test.get("2"), is(TestEnum.SECOND));
-        assertThat(test.get("3"), is(TestEnum.THIRD));
+        assertThat(test.get("1")).isEqualTo(TestEnum.FIRST);
+        assertThat(test.get("2")).isEqualTo(TestEnum.SECOND);
+        assertThat(test.get("3")).isEqualTo(TestEnum.THIRD);
     }
 
     @Test(expected = IdentifiableEnumIdNotFoundException.class)

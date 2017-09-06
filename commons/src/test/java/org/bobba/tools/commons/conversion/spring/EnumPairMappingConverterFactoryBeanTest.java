@@ -9,9 +9,7 @@ import org.junit.Test;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.RetentionPolicy;
 
-import static org.hamcrest.Matchers.instanceOf;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 public class EnumPairMappingConverterFactoryBeanTest {
@@ -20,7 +18,7 @@ public class EnumPairMappingConverterFactoryBeanTest {
 
     @Before
     public void setUp() throws Exception {
-        factoryBean = new EnumPairMappingConverterFactoryBean<RetentionPolicy, ElementType>();
+        factoryBean = new EnumPairMappingConverterFactoryBean<>();
 
         factoryBean.setSourceClass(RetentionPolicy.class);
         factoryBean.setTargetClass(ElementType.class);
@@ -31,8 +29,8 @@ public class EnumPairMappingConverterFactoryBeanTest {
     public void correctlyMapsEnumerations() throws Exception {
         final SimpleUnidirectionalConverter<RetentionPolicy, ElementType> converter = createConverter();
 
-        assertThat(converter.convert(RetentionPolicy.SOURCE), is(ElementType.TYPE));
-        assertThat(converter.convert(RetentionPolicy.CLASS), is(ElementType.FIELD));
+        assertThat(converter.convert(RetentionPolicy.SOURCE)).isEqualTo(ElementType.TYPE);
+        assertThat(converter.convert(RetentionPolicy.CLASS)).isEqualTo(ElementType.FIELD);
     }
 
     @Test(expected = ConversionException.class)
@@ -65,7 +63,7 @@ public class EnumPairMappingConverterFactoryBeanTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void throwsExceptionWhenMappingIsEmpty() throws Exception {
-        factoryBean.setMappings(ImmutableMap.<String, String>of());
+        factoryBean.setMappings(ImmutableMap.of());
         createConverter();
     }
 
@@ -76,9 +74,8 @@ public class EnumPairMappingConverterFactoryBeanTest {
             createConverter();
             fail("Expected ConversionException");
         } catch (ConversionException e) {
-            assertThat(e.getCause(), instanceOf(IllegalArgumentException.class));
-            assertThat(e.getCause().getMessage(),
-                    is("Cannot find SOURCE_DOES_NOT_EXIST in enum class java.lang.annotation.RetentionPolicy"));
+            assertThat(e.getCause()).isInstanceOf(IllegalArgumentException.class)
+                    .hasMessage("Cannot find SOURCE_DOES_NOT_EXIST in enum class java.lang.annotation.RetentionPolicy");
         }
     }
 
@@ -89,14 +86,13 @@ public class EnumPairMappingConverterFactoryBeanTest {
             createConverter();
             fail("Expected ConversionException");
         } catch (ConversionException e) {
-            assertThat(e.getCause(), instanceOf(IllegalArgumentException.class));
-            assertThat(e.getCause().getMessage(),
-                    is("Cannot find TARGET_DOES_NOT_EXIST in enum class java.lang.annotation.ElementType"));
+            assertThat(e.getCause()).isInstanceOf(IllegalArgumentException.class)
+                    .hasMessage("Cannot find TARGET_DOES_NOT_EXIST in enum class java.lang.annotation.ElementType");
         }
     }
 
     private SimpleUnidirectionalConverter<RetentionPolicy, ElementType> createConverter() throws Exception {
-            return factoryBean.getObject();
+        return factoryBean.getObject();
     }
 
 }

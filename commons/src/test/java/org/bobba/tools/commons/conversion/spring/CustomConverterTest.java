@@ -12,8 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.RetentionPolicy;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("CustomConverterTest.spring.xml")
@@ -25,8 +24,8 @@ public class CustomConverterTest {
 
     @Test
     public void correctlyMapsEnumerations() throws Exception {
-        assertThat(converter.convert(RetentionPolicy.SOURCE), is(ElementType.TYPE));
-        assertThat(converter.convert(RetentionPolicy.CLASS), is(ElementType.FIELD));
+        assertThat(converter.convert(RetentionPolicy.SOURCE)).isEqualTo(ElementType.TYPE);
+        assertThat(converter.convert(RetentionPolicy.CLASS)).isEqualTo(ElementType.FIELD);
     }
 
     @Test(expected = ConversionException.class)
@@ -38,4 +37,5 @@ public class CustomConverterTest {
     public void throwsExceptionWhenSouceIsNull() throws Exception {
         converter.convert(null);
     }
+
 }

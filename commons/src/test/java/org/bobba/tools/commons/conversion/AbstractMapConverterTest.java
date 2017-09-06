@@ -1,17 +1,13 @@
 package org.bobba.tools.commons.conversion;
 
 import com.google.common.collect.ImmutableMap;
-import org.bobba.tools.commons.conversion.AbstractMapConverter;
-import org.bobba.tools.commons.conversion.ConversionException;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.AbstractMap;
 import java.util.Map;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 public class AbstractMapConverterTest {
@@ -25,7 +21,7 @@ public class AbstractMapConverterTest {
             protected Map.Entry<Long, Boolean> convertEntry(Map.Entry<String, Integer> entry) throws Exception {
                 final Long key = Long.parseLong(entry.getKey());
                 final Boolean value = entry.getValue() != 0;
-                return new AbstractMap.SimpleEntry<Long, Boolean>(key, value);
+                return new AbstractMap.SimpleEntry<>(key, value);
             }
         };
     }
@@ -34,10 +30,10 @@ public class AbstractMapConverterTest {
     public void convertsCorrectly() throws Exception {
         final Map<Long, Boolean> convertedMap = converter.convert(ImmutableMap.of("66", 0, "77", 1));
 
-        assertThat(convertedMap, notNullValue());
-        assertThat(convertedMap.size(), is(2));
-        assertThat(convertedMap.get(66L), is(Boolean.FALSE));
-        assertThat(convertedMap.get(77L), is(Boolean.TRUE));
+        assertThat(convertedMap).isNotNull();
+        assertThat(convertedMap).hasSize(2);
+        assertThat(convertedMap.get(66L)).isEqualTo(Boolean.FALSE);
+        assertThat(convertedMap.get(77L)).isEqualTo(Boolean.TRUE);
     }
 
     @Test(expected = NumberFormatException.class)
@@ -52,15 +48,15 @@ public class AbstractMapConverterTest {
                     @Override
                     protected Map.Entry<Integer, String> convertEntry(Map.Entry<Integer, String> entry)
                             throws Exception {
-                        return new AbstractMap.SimpleEntry<Integer, String>(entry.getKey() / 2, entry.getValue());
+                        return new AbstractMap.SimpleEntry<>(entry.getKey() / 2, entry.getValue());
                     }
                 };
         try {
             mapConverter.convert(ImmutableMap.of(3, "three", 4, "four", 5, "five", 7, "seven"));
             fail("ConversionException expected");
         } catch (ConversionException e) {
-            assertThat(e.getMessage(),
-                    is("Same target map key \"2\" created for two source map keys: \"4\" and \"5\""));
+            assertThat(e.getMessage()).isEqualTo(
+                    "Same target map key \"2\" created for two source map keys: \"4\" and \"5\"");
         }
     }
 
@@ -79,7 +75,7 @@ public class AbstractMapConverterTest {
             converter.convert(ImmutableMap.of(1, "one"));
             fail("ConversionException expected");
         } catch (ConversionException e) {
-            assertThat(e.getMessage(), is("Converted object is null for input 1=one"));
+            assertThat(e.getMessage()).isEqualTo("Converted object is null for input 1=one");
         }
     }
 

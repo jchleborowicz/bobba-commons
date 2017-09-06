@@ -38,7 +38,6 @@ public class IdentifiableEnumHelperTest {
             this.id = id;
         }
 
-
         @Override
         public String getId() {
             return id;

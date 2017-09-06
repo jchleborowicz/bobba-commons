@@ -7,11 +7,7 @@ import ognl.OgnlException;
 public class ExpressionReplace {
 
     public static String replaceExpressions(String text, final Object contextObject) {
-        return VariableReplace.replaceVariables(text, new VariableReplace.VariableReplaceCallback() {
-            public String replace(String variableText) {
-                return evaluate(variableText, contextObject);
-            }
-        });
+        return VariableReplace.replaceVariables(text, variableText -> evaluate(variableText, contextObject));
     }
 
     private static String evaluate(String expression, Object contextObject) {

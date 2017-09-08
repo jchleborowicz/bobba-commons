@@ -37,7 +37,7 @@ public class GenericEnumUserType implements UserType, ParameterizedType {
         String identifierMethodName = parameters.getProperty("identifierMethod", DEFAULT_IDENTIFIER_METHOD_NAME);
 
         try {
-            identifierMethod = enumClass.getMethod(identifierMethodName, new Class[0]);
+            identifierMethod = enumClass.getMethod(identifierMethodName);
             identifierType = identifierMethod.getReturnType();
         } catch (Exception e) {
             throw new HibernateException("Failed to obtain identifier method", e);
@@ -53,7 +53,7 @@ public class GenericEnumUserType implements UserType, ParameterizedType {
         String valueOfMethodName = parameters.getProperty("valueOfMethod", DEFAULT_VALUE_OF_METHOD_NAME);
 
         try {
-            valueOfMethod = enumClass.getMethod(valueOfMethodName, new Class[]{identifierType});
+            valueOfMethod = enumClass.getMethod(valueOfMethodName, identifierType);
         } catch (Exception e) {
             throw new HibernateException("Failed to obtain valueOf method", e);
         }
@@ -70,7 +70,7 @@ public class GenericEnumUserType implements UserType, ParameterizedType {
         }
 
         try {
-            return valueOfMethod.invoke(enumClass, new Object[]{identifier});
+            return valueOfMethod.invoke(enumClass, identifier);
         } catch (Exception e) {
             throw new HibernateException("Exception while invoking valueOf method '" + valueOfMethod.getName() + "' of " +
                     "enumeration class '" + enumClass + "'", e);
@@ -82,7 +82,7 @@ public class GenericEnumUserType implements UserType, ParameterizedType {
             if (value == null) {
                 st.setNull(index, type.sqlType());
             } else {
-                Object identifier = identifierMethod.invoke(value, new Object[0]);
+                Object identifier = identifierMethod.invoke(value);
                 type.set(st, identifier, index);
             }
         } catch (Exception e) {

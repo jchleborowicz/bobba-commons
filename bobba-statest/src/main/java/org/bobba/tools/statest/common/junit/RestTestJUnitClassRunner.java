@@ -63,11 +63,6 @@ public class RestTestJUnitClassRunner extends BlockJUnit4ClassRunner {
     }
 
     @Override
-    protected Object createTest() throws Exception {
-        return super.createTest();
-    }
-
-    @Override
     protected void validateTestMethods(List<Throwable> errors) {
         final List<FrameworkMethod> testMethods = getTestMethods();
         final ImmutableListMultimap<String, FrameworkMethod> methodsByName =

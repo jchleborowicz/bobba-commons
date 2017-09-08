@@ -117,12 +117,12 @@ public class RestRepeaterCommandLine {
         writeCommandLineContextToFile();
     }
 
-    private void printGreeting() throws IOException {
+    private void printGreeting() {
         commandLineOutput.println("Welcome to Rest Repeater!");
         commandLineOutput.println("Use help command to display help");
     }
 
-    private void onCommand(String line) throws IOException {
+    private void onCommand(String line) {
         if (StringUtils.isNotBlank(line)) {
             final CommandRequest command = CommandRequest.parse(line);
 

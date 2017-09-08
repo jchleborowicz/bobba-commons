@@ -49,7 +49,7 @@ public class RestSuiteJUnitRunner extends ParentRunner<Runner> {
         return method;
     }
 
-    private static Method findDefinitionFactoryAnnotatedMethod(Class<?> testClass) throws NoSuchMethodException {
+    private static Method findDefinitionFactoryAnnotatedMethod(Class<?> testClass) {
         final List<Method> methods = CommonUtils.getMethodsAnnotatedWith(testClass,
                 RestSuiteJUnitRunner.DefinitionFactory.class);
 

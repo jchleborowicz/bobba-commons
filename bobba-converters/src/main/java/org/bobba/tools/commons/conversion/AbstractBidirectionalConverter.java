@@ -44,12 +44,12 @@ public abstract class AbstractBidirectionalConverter<S, T>
     /**
      * It is safe to assume that both source and target are not null.
      */
-    protected abstract void safeConvertForward(S source, T target) throws Exception;
+    protected abstract void safeConvertForward(S source, T target);
 
     /**
      * It is safe to assume that both source and target are not null.
      */
-    protected abstract void safeConvertBackward(T source, S target) throws Exception;
+    protected abstract void safeConvertBackward(T source, S target);
 
     @Override
     public UnidirectionalConverter<S, T> getForwardConverter() {

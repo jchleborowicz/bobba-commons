@@ -41,9 +41,9 @@
     </properties>
 
     <modules>
-        <module>commons</module>
-        <module>bobba-converters</module>
+        <module>bobba-commons</module>
         <module>bobba-command-line</module>
+        <module>bobba-converters</module>
         <module>bobba-rest-repeater</module>
         <module>rest-tests</module>
         <module>test-common</module>

@@ -1,9 +1,5 @@
 package org.bobba.tools.commons.conversion;
 
-import javassist.ClassPool;
-import javassist.CtClass;
-import javassist.CtMethod;
-import javassist.NotFoundException;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.EnumUtils;
 
@@ -93,23 +89,6 @@ public final class CommonUtils {
     public static String createCodePointer(StackTraceElement stackTraceElement) {
         return createCodePointer(stackTraceElement.getClassName(), stackTraceElement.getMethodName(),
                 stackTraceElement.getLineNumber());
-    }
-
-    public static String createCodePointer(Method method) {
-        final int lineNumber = getMethodLineNumber(method);
-        return createCodePointer(method.getDeclaringClass().getName(), method.getName(), lineNumber);
-    }
-
-    private static int getMethodLineNumber(Method method) {
-        ClassPool pool = ClassPool.getDefault();
-        try {
-            CtClass cc = pool.get(method.getDeclaringClass().getCanonicalName());
-            CtMethod javassistMethod = cc.getDeclaredMethod(method.getName());
-            return javassistMethod.getMethodInfo().getLineNumber(0);
-        } catch (NotFoundException e) {
-            //tod jchleborowic deal with exception thrown
-            return 0;
-        }
     }
 
     /**

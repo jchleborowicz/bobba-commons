@@ -1,7 +1,7 @@
 package org.bobba.tools.commons.conversion;
 
-import static org.bobba.tools.commons.utils.CommonUtils.checkRequiredObjectType;
 import static org.apache.commons.lang3.Validate.notNull;
+import static org.bobba.tools.commons.conversion.CommonUtils.checkRequiredObjectType;
 
 public abstract class AbstractUnidirectionalConverter<S, T>
         extends AbstractSimpleUnidirectionalConverter<S, T> implements UnidirectionalConverter<S, T> {

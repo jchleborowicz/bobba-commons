@@ -1,7 +1,8 @@
 package org.bobba.tools.commons.conversion;
 
-import org.bobba.tools.commons.TestIntegerHolder;
-import org.bobba.tools.commons.TestStringHolder;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -114,4 +115,17 @@ public class AbstractBidirectionalConverterTest {
         assertThat(result).isEqualTo(new TestStringHolder("40"));
     }
 
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    private static class TestStringHolder {
+        private String text;
+    }
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    private static class TestIntegerHolder {
+        private int number;
+    }
 }

@@ -7,8 +7,8 @@ import org.springframework.beans.factory.FactoryBean;
 
 import java.util.Map;
 
-import static org.bobba.tools.commons.utils.CommonUtils.checkRequiredClassType;
 import static org.apache.commons.lang3.Validate.notEmpty;
+import static org.bobba.tools.commons.conversion.CommonUtils.checkRequiredClassType;
 
 public class EnumPairMappingConverterFactoryBean<S extends Enum<S>, T extends Enum<T>>
         implements FactoryBean<SimpleUnidirectionalConverter<S, T>> {

@@ -1,6 +1,6 @@
 package org.bobba.tools.commons.conversion;
 
-import static org.bobba.tools.commons.utils.CommonUtils.checkObjectType;
+import static org.bobba.tools.commons.conversion.CommonUtils.checkObjectType;
 
 public abstract class AbstractSimpleUnidirectionalConverter<S, T> implements SimpleUnidirectionalConverter<S, T> {
 

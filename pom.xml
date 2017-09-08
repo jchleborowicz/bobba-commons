@@ -42,6 +42,7 @@
 
     <modules>
         <module>commons</module>
+        <module>bobba-converters</module>
         <module>rest-repeater</module>
         <module>rest-tests</module>
         <module>test-common</module>

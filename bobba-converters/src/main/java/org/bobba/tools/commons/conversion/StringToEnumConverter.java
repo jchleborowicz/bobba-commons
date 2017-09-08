@@ -1,7 +1,5 @@
 package org.bobba.tools.commons.conversion;
 
-import org.bobba.tools.commons.utils.CommonUtils;
-
 public class StringToEnumConverter<T extends Enum<T>> extends AbstractSimpleUnidirectionalConverter<String, T>{
 
     private final Class<T> enumClass;

@@ -8,7 +8,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>bobba-rest-tests</artifactId>
+    <artifactId>bobba-statest</artifactId>
 
     <dependencies>
         <!-- Compile -->

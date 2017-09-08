@@ -11,12 +11,6 @@
     <category name="org.apache.commons.configuration">
         <level value="INFO"/>
     </category>
-    <category name="org.jboss.remoting">
-        <level value="WARN"/>
-    </category>
-    <category name="org.jboss.ejb3.proxy">
-        <level value="WARN"/>
-    </category>
     <root>
         <level value="DEBUG"/>
         <appender-ref ref="console"/>

@@ -30,8 +30,8 @@ public class GenericEnumUserType implements UserType, ParameterizedType {
         String enumClassName = parameters.getProperty("enumClass");
         try {
             enumClass = Class.forName(enumClassName).asSubclass(Enum.class);
-        } catch (ClassNotFoundException cfne) {
-            throw new HibernateException("Enum class not found", cfne);
+        } catch (ClassNotFoundException e) {
+            throw new HibernateException("Enum class not found", e);
         }
 
         String identifierMethodName = parameters.getProperty("identifierMethod", DEFAULT_IDENTIFIER_METHOD_NAME);

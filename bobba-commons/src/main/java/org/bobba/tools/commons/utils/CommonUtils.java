@@ -107,7 +107,7 @@ public final class CommonUtils {
             CtMethod javassistMethod = cc.getDeclaredMethod(method.getName());
             return javassistMethod.getMethodInfo().getLineNumber(0);
         } catch (NotFoundException e) {
-            //tod jchleborowic deal with exception thrown
+            //todo jch deal with exception thrown
             return 0;
         }
     }

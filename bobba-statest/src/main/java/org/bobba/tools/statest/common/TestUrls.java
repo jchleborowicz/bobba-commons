@@ -17,7 +17,7 @@ public final class TestUrls {
 
     private static void logUrls() {
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("Test URLs initalized as follows:"
+            LOGGER.debug("Test URLs initialized as follows:"
                             + "\nSOME_URL: " + SOME_URL.getUrl()
             );
         }

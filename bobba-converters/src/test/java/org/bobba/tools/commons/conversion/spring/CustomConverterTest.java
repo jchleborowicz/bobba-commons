@@ -29,12 +29,12 @@ public class CustomConverterTest {
     }
 
     @Test(expected = ConversionException.class)
-    public void throwsExceptionWhenSouceNotFound() throws Exception {
+    public void throwsExceptionWhenSourceNotFound() throws Exception {
         converter.convert(RetentionPolicy.RUNTIME);
     }
 
     @Test(expected = ConversionException.class)
-    public void throwsExceptionWhenSouceIsNull() throws Exception {
+    public void throwsExceptionWhenSourceIsNull() throws Exception {
         converter.convert(null);
     }
 

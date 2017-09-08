@@ -52,7 +52,7 @@ public class RestTestRunner {
                 .desc("Lists test classes.")
                 .build());
         options.addOption(Option.builder(OPTION_PERFORM_TESTS)
-                .desc("Runs sequentialy tests specified as a parameter. Individual test should be separated by space.")
+                .desc("Runs sequentially tests specified as a parameter. Individual test should be separated by space.")
                 .optionalArg(true)
                 .hasArgs()
                 .build());
@@ -227,7 +227,7 @@ public class RestTestRunner {
 
         final File file = new File(sourceLocation.getFile());
         if (!file.isFile()) {
-            throw new RuntimeException("Source code location for the clas is not a jar file: " + file);
+            throw new RuntimeException("Source code location for the class is not a jar file: " + file);
         }
 
         final JarFile jarFile = openJarFile(file);

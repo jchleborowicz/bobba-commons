@@ -200,13 +200,10 @@ public class RestTestGenerator {
     }
 
     private boolean hasHeader(HarEntry entry, String headerName) {
-        final String uppercasedHeaderName = headerName.toUpperCase();
-        for (HarHeader harHeader : entry.getRequest().getHeaders()) {
-            if (uppercasedHeaderName.equals(harHeader.getName().toUpperCase())) {
-                return true;
-            }
-        }
-        return false;
+        final List<HarHeader> headers = entry.getRequest().getHeaders();
+
+        return headers.stream()
+                .anyMatch(harHeader -> headerName.equalsIgnoreCase(harHeader.getName()));
     }
 
     private void printGivenSection(HarRequest request, boolean hasAuthorization, String bodyFileName) {

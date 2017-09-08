@@ -23,7 +23,7 @@ public class AbstractSimpleUnidirectionalConverterTest {
             };
 
     @Test(expected = IllegalArgumentException.class)
-    public void throwsExceptionWhenSourceObjectIsNotOfExcpectedClass() throws Exception {
+    public void throwsExceptionWhenSourceObjectIsNotOfExpectedClass() throws Exception {
         //noinspection unchecked
         ((SimpleUnidirectionalConverter) converter).convert(3L);
     }
@@ -45,7 +45,7 @@ public class AbstractSimpleUnidirectionalConverterTest {
     }
 
     @Test
-    public void returnsCorrectNullSorceAllowed() {
+    public void returnsCorrectNullSourceAllowed() {
         assertThat(converter.isNullSourceAllowed()).isEqualTo(false);
         assertThat(nullAcceptingConverter.isNullSourceAllowed()).isEqualTo(true);
     }

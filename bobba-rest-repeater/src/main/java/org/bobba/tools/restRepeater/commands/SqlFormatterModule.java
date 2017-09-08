@@ -65,7 +65,7 @@ public class SqlFormatterModule {
         final Matcher matcher = pattern.matcher(insertSql);
 
         if (!matcher.find()) {
-            throw new CommandLineBusinessException("ERROR: Wrong inser fromat:\n" + insertSql);
+            throw new CommandLineBusinessException("ERROR: Wrong insert format:\n" + insertSql);
         }
 
         final InsertStatement insertStatement = new InsertStatement();

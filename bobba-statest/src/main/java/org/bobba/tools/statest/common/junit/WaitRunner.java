@@ -16,8 +16,8 @@ public class WaitRunner extends Runner {
     private final long delayInSeconds;
     private final int testUniqueId;
 
-    public WaitRunner(long dealyInSeconds, int testUniqueId) {
-        this.delayInSeconds = dealyInSeconds;
+    public WaitRunner(long delayInSeconds, int testUniqueId) {
+        this.delayInSeconds = delayInSeconds;
         this.testUniqueId = testUniqueId;
     }
 

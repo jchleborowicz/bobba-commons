@@ -12,7 +12,7 @@ public final class TestProxyFactory {
     }
 
     public static <T> T newExceptionThrowingProxy(Class<T> aClass) {
-        final InvocationHandler infocationHandler = new InvocationHandler() {
+        final InvocationHandler invocationHandler = new InvocationHandler() {
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
                 if (method.getDeclaringClass() == Object.class) {
@@ -29,7 +29,7 @@ public final class TestProxyFactory {
 
         //noinspection unchecked
         return (T) Proxy.newProxyInstance(TestProxyFactory.class.getClassLoader(), new Class[]{aClass},
-                infocationHandler);
+                invocationHandler);
     }
 
 }

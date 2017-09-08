@@ -9,8 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 @CommandLineModule(name = "clipboard")
 public class ClipboardModule {
 
-    @Autowired
-    private ClipboardService clipboardService;
+    private final ClipboardService clipboardService;
+
+    public ClipboardModule(ClipboardService clipboardService) {
+        this.clipboardService = clipboardService;
+    }
 
     @Command(names = "c", description = "Clipboard manipulation: printing, saving and reading to/from file.\n"
             + "When used without parameters prints clipboard content\n"

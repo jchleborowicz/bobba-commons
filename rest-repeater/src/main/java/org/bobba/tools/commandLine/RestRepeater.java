@@ -8,7 +8,6 @@ import org.jboss.resteasy.client.ClientRequest;
 import org.jboss.resteasy.client.ClientResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.core.MediaType;
@@ -25,8 +24,11 @@ public class RestRepeater {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RestRepeater.class);
 
-    @Autowired
-    private RequestParser parser;
+    private final RequestParser parser;
+
+    public RestRepeater(RequestParser parser) {
+        this.parser = parser;
+    }
 
     public void sendFileContent(String fileName, String targetHost) {
         final String requestString = readInputFileFromClasspath(fileName);

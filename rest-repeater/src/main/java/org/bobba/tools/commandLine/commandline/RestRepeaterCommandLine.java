@@ -5,7 +5,6 @@ import com.google.common.collect.ImmutableMap;
 import jline.console.ConsoleReader;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
@@ -31,14 +30,19 @@ public class RestRepeaterCommandLine {
 
     private static final String COMMAND_LINE_CONTEXT_FILE = ".cmd-line-ctx";
 
-    @Autowired
-    private ConsoleReader console;
-    @Autowired
-    private CommandLineOutput commandLineOutput;
-    @Autowired
-    private ApplicationContext beanFactory;
+    private final ConsoleReader console;
+    private final CommandLineOutput commandLineOutput;
+    private final ApplicationContext beanFactory;
+
     private ImmutableMap<String, CommandDescriptor> commands;
     private CommandLineContext commandLineContext;
+
+    public RestRepeaterCommandLine(ConsoleReader console, CommandLineOutput commandLineOutput,
+                                   ApplicationContext beanFactory) {
+        this.console = console;
+        this.commandLineOutput = commandLineOutput;
+        this.beanFactory = beanFactory;
+    }
 
     @PostConstruct
     public void initialize() {

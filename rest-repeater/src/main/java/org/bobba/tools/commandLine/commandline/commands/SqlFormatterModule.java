@@ -1,12 +1,11 @@
 package org.bobba.tools.commandLine.commandline.commands;
 
+import org.apache.commons.lang3.StringUtils;
 import org.bobba.tools.commandLine.ClipboardService;
 import org.bobba.tools.commandLine.commandline.Command;
 import org.bobba.tools.commandLine.commandline.CommandLineBusinessException;
 import org.bobba.tools.commandLine.commandline.CommandLineModule;
 import org.bobba.tools.commandLine.commandline.CommandLineOutput;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +15,11 @@ import java.util.regex.Pattern;
 @CommandLineModule(name = "sql")
 public class SqlFormatterModule {
 
-    @Autowired
-    private ClipboardService clipboardService;
+    private final ClipboardService clipboardService;
+
+    public SqlFormatterModule(ClipboardService clipboardService) {
+        this.clipboardService = clipboardService;
+    }
 
     @Command(names = "fi", description = "Formats insert sql. Reads input from clipboard.")
     public void execute(CommandLineOutput output) {

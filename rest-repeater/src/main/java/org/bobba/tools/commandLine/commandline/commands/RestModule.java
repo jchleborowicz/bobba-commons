@@ -1,5 +1,6 @@
 package org.bobba.tools.commandLine.commandline.commands;
 
+import org.apache.commons.lang3.StringUtils;
 import org.bobba.tools.commandLine.ClipboardService;
 import org.bobba.tools.commandLine.CommandLineUtils;
 import org.bobba.tools.commandLine.RestRepeater;
@@ -8,16 +9,17 @@ import org.bobba.tools.commandLine.commandline.CommandLineBusinessException;
 import org.bobba.tools.commandLine.commandline.CommandLineContext;
 import org.bobba.tools.commandLine.commandline.CommandLineModule;
 import org.bobba.tools.commandLine.commandline.CommandLineOutput;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @CommandLineModule(name = "rest")
 public class RestModule {
 
-    @Autowired
-    private RestRepeater restRepeater;
-    @Autowired
-    private ClipboardService clipboardService;
+    private final RestRepeater restRepeater;
+    private final ClipboardService clipboardService;
+
+    public RestModule(RestRepeater restRepeater, ClipboardService clipboardService) {
+        this.restRepeater = restRepeater;
+        this.clipboardService = clipboardService;
+    }
 
     @Command(names = "e", description = "Executes request from clipboard")
     public void execute(String hostId, CommandLineContext context) {

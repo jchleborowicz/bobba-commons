@@ -8,7 +8,7 @@
     <context:component-scan base-package="org.bobba.tools.commandLine"/>
 
     <bean id="consoleReader" class="jline.console.ConsoleReader"/>
-    <bean id="commandLineOutput" class="org.bobba.tools.commandLine.commandline.ConsoleReaderCommandLineOutput">
+    <bean id="commandLineOutput" class="org.bobba.tools.commandLine.ConsoleReaderCommandLineOutput">
         <constructor-arg ref="consoleReader"/>
     </bean>
 

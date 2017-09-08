@@ -2,10 +2,10 @@ package org.bobba.tools.statest.common;
 
 import com.jayway.restassured.response.Header;
 import com.jayway.restassured.response.Headers;
-import org.apache.commons.lang3.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class HeadersBuilder {
 
@@ -19,7 +19,7 @@ public class HeadersBuilder {
     }
 
     public HeadersBuilder withHeader(String name, Object value) {
-        return withHeader(name, ObjectUtils.toString(value));
+        return withHeader(name, Objects.toString(value));
     }
 
     public HeadersBuilder withHeader(String name, String value) {

@@ -43,18 +43,18 @@ public class RequestParser {
                 nextLine = input.readLine();
             }
 
-            String requestBody = "";
+            final StringBuilder requestBody = new StringBuilder();
 
             while (nextLine != null && !"-- Response --".equals(nextLine)) {
-                if (!requestBody.isEmpty()) {
-                    requestBody += "\n";
+                if (requestBody.length() > 0) {
+                    requestBody.append("\n");
                 }
-                requestBody += nextLine;
+                requestBody.append(nextLine);
                 nextLine = input.readLine();
             }
 
-            if (StringUtils.isNotBlank(requestBody)) {
-                result.setBody(requestBody);
+            if (StringUtils.isNotBlank(requestBody.toString())) {
+                result.setBody(requestBody.toString());
             }
             if (!"-- Response --".equals(nextLine)) {
                 throw new RuntimeException("Unexpected request line:\n" + nextLine);

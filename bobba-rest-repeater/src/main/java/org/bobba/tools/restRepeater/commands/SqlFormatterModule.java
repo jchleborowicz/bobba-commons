@@ -36,22 +36,22 @@ public class SqlFormatterModule {
     }
 
     private String createInsertSql(InsertStatement insertStatement) {
-        String result = "INSERT INTO " + insertStatement.getTableName() + " (\n";
+        final StringBuilder result = new StringBuilder("INSERT INTO " + insertStatement.getTableName() + " (\n");
         final InsertField lastField = insertStatement.getFields().get(insertStatement.getFields().size() - 1);
         for (InsertField insertField : insertStatement.getFields()) {
-            result += "    " + insertField.getName();
+            result.append("    ").append(insertField.getName());
             if (insertField != lastField) {
-                result += ",";
+                result.append(",");
             }
-            result += "\n";
+            result.append("\n");
         }
-        result += ") VALUES (\n";
+        result.append(") VALUES (\n");
         for (InsertField insertField : insertStatement.getFields()) {
-            result += "    " + insertField.getValue();
+            result.append("    ").append(insertField.getValue());
             if (insertField != lastField) {
-                result += ",";
+                result.append(",");
             }
-            result += " --" + insertField.getName() + "\n";
+            result.append(" --").append(insertField.getName()).append("\n");
         }
 
         return result + ");";

@@ -166,20 +166,21 @@ public class RestTestGenerator {
     }
 
     private String makeMethodName(String urlText) {
-        String result = "";
+        final StringBuilder result = new StringBuilder();
+
         boolean uppercase = false;
         for (char c : urlText.toCharArray()) {
             if (c == '?') {
                 break;
             }
             if (CharUtils.isAsciiAlphanumeric(c)) {
-                result += uppercase ? Character.toUpperCase(c) : c;
+                result.append(uppercase ? Character.toUpperCase(c) : c);
                 uppercase = CharUtils.isAsciiNumeric(c);
             } else {
                 uppercase = true;
             }
         }
-        return notEmpty(result, "Empty method name for url: %s", urlText);
+        return notEmpty(result.toString(), "Empty method name for url: %s", urlText);
     }
 
     private void writeResponse(HarResponse response, String outputFileName) {

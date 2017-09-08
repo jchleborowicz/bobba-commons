@@ -35,9 +35,7 @@ public class DefaultClipboardService implements ClipboardService {
             final Toolkit defaultToolkit = Toolkit.getDefaultToolkit();
             final Clipboard systemClipboard = defaultToolkit.getSystemClipboard();
             return (String) systemClipboard.getData(DataFlavor.stringFlavor);
-        } catch (UnsupportedFlavorException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+        } catch (UnsupportedFlavorException | IOException e) {
             throw new RuntimeException(e);
         }
     }

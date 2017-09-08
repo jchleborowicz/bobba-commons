@@ -6,7 +6,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class AbstractSimpleBidirectionalConverterTest {
 
-    private AbstractSimpleBidirectionalConverter<String, Integer> converter =
+    private final AbstractSimpleBidirectionalConverter<String, Integer> converter =
             new AbstractSimpleBidirectionalConverter<String, Integer>() {
                 @Override
                 protected Integer safeConvertForward(String source) throws Exception {

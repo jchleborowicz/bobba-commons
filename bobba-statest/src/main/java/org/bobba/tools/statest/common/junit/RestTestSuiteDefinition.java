@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class RestTestSuiteDefinition {
 
     private final List<TestRunnerCreator> testRunnerCreators;
-    private AtomicInteger idGenerator = new AtomicInteger(0);
+    private final AtomicInteger idGenerator = new AtomicInteger(0);
 
 
     public RestTestSuiteDefinition(List<TestRunnerCreator> testRunnerCreators) {

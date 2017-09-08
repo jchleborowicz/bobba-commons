@@ -9,7 +9,7 @@ import static org.apache.commons.lang3.Validate.notNull;
 
 public class GenericRestTestResult implements Iterable<GenericRestTestResult.Entry> {
 
-    private List<Entry> entries = new ArrayList<>();
+    private final List<Entry> entries = new ArrayList<>();
 
     public GenericRestTestResult() {
     }
@@ -47,7 +47,7 @@ public class GenericRestTestResult implements Iterable<GenericRestTestResult.Ent
 
     public static final class Entry {
         private String objectId;
-        private Object value;
+        private final Object value;
 
         public Entry(Object value) {
             notNull(value, "Unnamed null values not supported");

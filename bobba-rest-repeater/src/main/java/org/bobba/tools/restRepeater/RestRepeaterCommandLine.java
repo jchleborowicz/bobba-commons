@@ -195,7 +195,7 @@ public class RestRepeaterCommandLine {
     }
 
     private final static class CommandMapBuilder {
-        private Map<String, CommandDescriptor> commands = new HashMap<>();
+        private final Map<String, CommandDescriptor> commands = new HashMap<>();
 
         private CommandMapBuilder() {
         }

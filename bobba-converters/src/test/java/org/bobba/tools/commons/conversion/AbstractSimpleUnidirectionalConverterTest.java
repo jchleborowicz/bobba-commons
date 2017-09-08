@@ -6,7 +6,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class AbstractSimpleUnidirectionalConverterTest {
 
-    private AbstractSimpleUnidirectionalConverter<Integer, String> converter =
+    private final AbstractSimpleUnidirectionalConverter<Integer, String> converter =
             new AbstractSimpleUnidirectionalConverter<Integer, String>(Integer.class, String.class) {
                 @Override
                 protected String safeConvert(Integer source) {
@@ -14,8 +14,9 @@ public class AbstractSimpleUnidirectionalConverterTest {
                 }
             };
 
-    private AbstractSimpleUnidirectionalConverter<Integer, String> nullAcceptingConverter =
-            new AbstractSimpleUnidirectionalConverter<Integer, String>(Integer.class, String.class, true, "null value") {
+    private final AbstractSimpleUnidirectionalConverter<Integer, String> nullAcceptingConverter =
+            new AbstractSimpleUnidirectionalConverter<Integer, String>(Integer.class, String.class, true,
+                    "null value") {
                 @Override
                 protected String safeConvert(Integer source) {
                     return Integer.toString(source * 2);

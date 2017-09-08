@@ -10,8 +10,8 @@ public class CommandLineContext implements Serializable {
 
     private static final int MAX_COMMAND_HISTORY_SIZE = 10;
 
-    private Map<String, Object> variables = new HashMap<>();
-    private List<CommandRequest> commandHistory = new ArrayList<>();
+    private final Map<String, Object> variables = new HashMap<>();
+    private final List<CommandRequest> commandHistory = new ArrayList<>();
 
     public void set(String name, Object value) {
         variables.put(name, value);

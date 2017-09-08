@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class AbstractBidirectionalConverterTest {
 
-    private BidirectionalConverter<TestIntegerHolder, TestStringHolder> converter =
+    private final BidirectionalConverter<TestIntegerHolder, TestStringHolder> converter =
             new AbstractBidirectionalConverter<TestIntegerHolder, TestStringHolder>(TestIntegerHolder.class,
                     TestStringHolder.class) {
                 @Override

@@ -69,7 +69,7 @@ public final class RestAssuredCodeGenerator {
 
         private final List<String> lines = new ArrayList<>();
 
-        private NodeHandlerFactory nodeHandlerFactory = createNodeHandlerFactory();
+        private final NodeHandlerFactory nodeHandlerFactory = createNodeHandlerFactory();
 
         private static NodeHandlerFactory createNodeHandlerFactory() {
             final ImmutableMap<Class<? extends JsonNode>, NodeHandler<? extends JsonNode>>

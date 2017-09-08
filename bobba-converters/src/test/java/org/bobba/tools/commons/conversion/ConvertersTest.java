@@ -10,9 +10,9 @@ import static org.junit.Assert.fail;
 
 public class ConvertersTest {
 
-    private SimpleUnidirectionalConverter<Integer, String> keyConverter = Object::toString;
+    private final SimpleUnidirectionalConverter<Integer, String> keyConverter = Object::toString;
 
-    private SimpleUnidirectionalConverter<Long, String> valueConverter =
+    private final SimpleUnidirectionalConverter<Long, String> valueConverter =
             source -> source + " " + (source * 2);
 
     @Test

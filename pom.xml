@@ -46,7 +46,7 @@
         <module>bobba-converters</module>
         <module>bobba-rest-repeater</module>
         <module>bobba-rest-tests</module>
-        <module>test-common</module>
+        <module>bobba-test-common</module>
     </modules>
 
     <dependencyManagement>

@@ -183,7 +183,7 @@ public class RestRepeaterCommandLine {
     }
 
     private final static class CommandMapBuilder {
-        private Map<String, CommandDescriptor> commands = new HashMap<String, CommandDescriptor>();
+        private Map<String, CommandDescriptor> commands = new HashMap<>();
 
         private CommandMapBuilder() {
         }
@@ -267,7 +267,7 @@ public class RestRepeaterCommandLine {
         private void printListOfCommands(CommandLineOutput output) {
             output.println("Available commands:");
 
-            final List<String> help = new ArrayList<String>();
+            final List<String> help = new ArrayList<>();
             final Set<CommandDescriptor> commandDescriptors = getUniqueCommandDescriptors();
             for (CommandDescriptor command : commandDescriptors) {
                 final String commandNamesList = Joiner.on(", ").join(command.getNames());
@@ -281,7 +281,7 @@ public class RestRepeaterCommandLine {
         }
 
         private HashSet<CommandDescriptor> getUniqueCommandDescriptors() {
-            return new HashSet<CommandDescriptor>(RestRepeaterCommandLine.this.commands.values());
+            return new HashSet<>(RestRepeaterCommandLine.this.commands.values());
         }
 
         @Command(names = {"exit", "quit", "q"}, description = "Exits command line", appearsOnHistory = false)

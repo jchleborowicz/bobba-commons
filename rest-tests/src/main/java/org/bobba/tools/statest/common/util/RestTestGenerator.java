@@ -43,8 +43,8 @@ public class RestTestGenerator {
     private final PrintStream outputStream;
     private int indentLevel;
     private int testIndex = 1;
-    private final Set<String> headersToSkip = new HashSet<String>();
-    private final Set<String> cookiesToSkip = new HashSet<String>();
+    private final Set<String> headersToSkip = new HashSet<>();
+    private final Set<String> cookiesToSkip = new HashSet<>();
     private final Map<String, Integer> methodCounters = Maps.newHashMap();
 
     public RestTestGenerator(PrintStream outputStream) {
@@ -72,7 +72,7 @@ public class RestTestGenerator {
     }
 
     private static List<HarEntry> filter(List<HarEntry> entries) {
-        final List<HarEntry> result = new ArrayList<HarEntry>();
+        final List<HarEntry> result = new ArrayList<>();
         for (HarEntry entry : entries) {
             if (!shouldBeSkipped(entry)) {
                 result.add(entry);
@@ -125,7 +125,7 @@ public class RestTestGenerator {
         increaseIndent();
         line("@RestTest(order = " + testIndex + ")");
         testIndex++;
-        final List<String> params = new ArrayList<String>();
+        final List<String> params = new ArrayList<>();
         boolean hasAuthorization = hasHeader(entry, "Authorization");
         String methodName = createTestMethodName(entry);
         if (hasAuthorization) {

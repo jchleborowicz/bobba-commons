@@ -52,7 +52,7 @@ public class EnumConverterBeanDefinitionHandler extends AbstractSingleBeanDefini
     private Map<String, String> getMappings(Element element) {
         final List<Element> mappings = DomUtils.getChildElementsByTagName(element, "map");
 
-        final HashMap<String, String> result = new HashMap<String, String>();
+        final HashMap<String, String> result = new HashMap<>();
         for (Element mapping : mappings) {
             final String source = mapping.getAttribute("source");
             if (result.containsKey(source)) {

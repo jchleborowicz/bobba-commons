@@ -26,7 +26,7 @@ public class CommandDescriptor {
     }
 
     private static List<ArgumentsFetcher> createArgumentFetchers(Method method) {
-        final List<ArgumentsFetcher> result = new ArrayList<ArgumentsFetcher>();
+        final List<ArgumentsFetcher> result = new ArrayList<>();
         int stringIndex = 0;
         for (Class<?> parameterType : method.getParameterTypes()) {
             result.add(createArgumentFetcher(parameterType, method, stringIndex));

@@ -64,11 +64,11 @@ public class HostsModule {
     private Map<String, String> getHostsMap(CommandLineContext context) {
         //noinspection unchecked
         final Map<String, String> result = context.get(HostContextUtil.EXECUTE_HOSTS_VARIABLE_NAME, Map.class);
-        return result == null ? new HashMap<String, String>() : result;
+        return result == null ? new HashMap<>() : result;
     }
 
     private String toString(Map<String, String> hosts) {
-        final List<String> result = new ArrayList<String>();
+        final List<String> result = new ArrayList<>();
         for (Map.Entry<String, String> entry : hosts.entrySet()) {
             result.add(" - " + entry.getKey() + " - " + entry.getValue());
         }

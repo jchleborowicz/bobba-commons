@@ -10,6 +10,6 @@ public class HarPostData {
 
     private String mimeType;
     private String text;
-    private List<HarParam> params = new ArrayList<HarParam>();
+    private List<HarParam> params = new ArrayList<>();
 
 }

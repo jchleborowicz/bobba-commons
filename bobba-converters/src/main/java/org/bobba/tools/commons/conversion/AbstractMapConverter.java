@@ -23,7 +23,7 @@ public abstract class AbstractMapConverter<SOURCE_KEY, SOURCE_VALUE, TARGET_KEY,
     protected Map<TARGET_KEY, TARGET_VALUE> safeConvert(Map<SOURCE_KEY, SOURCE_VALUE> source) throws Exception {
         final Map<TARGET_KEY, TARGET_VALUE> target = createMapInstance();
 
-        final Map<TARGET_KEY, SOURCE_KEY> targetToSourceKeys = new HashMap<TARGET_KEY, SOURCE_KEY>();
+        final Map<TARGET_KEY, SOURCE_KEY> targetToSourceKeys = new HashMap<>();
 
         for (Map.Entry<SOURCE_KEY, SOURCE_VALUE> entry : source.entrySet()) {
             Map.Entry<TARGET_KEY, TARGET_VALUE> targetEntry = internalConvertEntry(entry);
@@ -54,7 +54,7 @@ public abstract class AbstractMapConverter<SOURCE_KEY, SOURCE_VALUE, TARGET_KEY,
             throws Exception;
 
     protected Map<TARGET_KEY, TARGET_VALUE> createMapInstance() {
-        return new HashMap<TARGET_KEY, TARGET_VALUE>();
+        return new HashMap<>();
     }
 
 }

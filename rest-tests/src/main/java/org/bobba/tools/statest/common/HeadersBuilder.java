@@ -9,7 +9,7 @@ import java.util.List;
 
 public class HeadersBuilder {
 
-    private final List<Header> headers = new ArrayList<Header>();
+    private final List<Header> headers = new ArrayList<>();
 
     private HeadersBuilder() {
     }

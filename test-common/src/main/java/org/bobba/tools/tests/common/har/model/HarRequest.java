@@ -12,9 +12,9 @@ public class HarRequest {
     private String method;
     private String url;
     private String httpVersion;
-    private List<HarHeader> headers = new ArrayList<HarHeader>();
-    private List<HarParam> queryString = new ArrayList<HarParam>();
-    private List<HarCookie> cookies = new ArrayList<HarCookie>();
+    private List<HarHeader> headers = new ArrayList<>();
+    private List<HarParam> queryString = new ArrayList<>();
+    private List<HarCookie> cookies = new ArrayList<>();
     private Integer headersSize;
     private Integer bodySize;
     private HarPostData postData;

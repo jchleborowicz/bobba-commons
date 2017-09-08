@@ -11,8 +11,8 @@ public class HarResponse {
     private Integer status;
     private String statusText;
     private String httpVersion;
-    private List<HarHeader> headers = new ArrayList<HarHeader>();
-    private List<HarCookie> cookies = new ArrayList<HarCookie>();
+    private List<HarHeader> headers = new ArrayList<>();
+    private List<HarCookie> cookies = new ArrayList<>();
     private HarContent content;
     private String redirectURL;
     private Integer headersSize;

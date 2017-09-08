@@ -17,7 +17,7 @@ public final class HostContextUtil {
     @SuppressWarnings("unchecked")
     public static Map<String, String> readHosts(CommandLineContext context) {
         final Map<String, String> result = context.get(EXECUTE_HOSTS_VARIABLE_NAME, Map.class);
-        return result == null ? new HashMap<String, String>() : result;
+        return result == null ? new HashMap<>() : result;
     }
 
     public static String readActiveHostId(CommandLineContext context) {

@@ -8,7 +8,7 @@ public class Request {
     private String host;
     private String httpMethod;
     private String path;
-    private Map<String, String> headers = new HashMap<String, String>();
+    private Map<String, String> headers = new HashMap<>();
     private String body;
 
     public void setUid(String uid) {

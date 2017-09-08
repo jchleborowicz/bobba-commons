@@ -86,7 +86,7 @@ public class SqlFormatterModule {
 
     private static class InsertStatement {
         private String tableName;
-        private List<InsertField> fields = new ArrayList<InsertField>();
+        private List<InsertField> fields = new ArrayList<>();
 
         public void setTableName(String tableName) {
             this.tableName = tableName;

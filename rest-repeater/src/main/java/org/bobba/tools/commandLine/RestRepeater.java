@@ -47,7 +47,7 @@ public class RestRepeater {
     }
 
     private void removeIgnoreCase(Map<String, ?> map, String keyToRemove) {
-        final Set<String> keys = new HashSet<String>(map.keySet());
+        final Set<String> keys = new HashSet<>(map.keySet());
         for (String key : keys) {
             if (key.equalsIgnoreCase(keyToRemove)) {
                 map.remove(key);

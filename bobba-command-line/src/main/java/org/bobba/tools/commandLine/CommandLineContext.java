@@ -3,7 +3,6 @@ package org.bobba.tools.commandLine;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -59,13 +58,7 @@ public class CommandLineContext implements Serializable {
     }
 
     private void removeCommand(CommandRequest command) {
-        final Iterator<CommandRequest> iterator = commandHistory.iterator();
-        while (iterator.hasNext()) {
-            final CommandRequest next = iterator.next();
-            if (next.equals(command)) {
-                iterator.remove();
-            }
-        }
+        commandHistory.removeIf(command::equals);
     }
 
     public List<CommandRequest> getCommandHistory() {

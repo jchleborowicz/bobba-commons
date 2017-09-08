@@ -25,12 +25,10 @@ public class RestRepeaterMainFrame extends JFrame {
     }
 
     public void initAndShow() {
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                init();
-                pack();
-                setVisible(true);
-            }
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            init();
+            pack();
+            setVisible(true);
         });
     }
 

@@ -6,18 +6,8 @@ public abstract class AbstractSimpleBidirectionalConverter<S, T> implements Simp
     private final SimpleUnidirectionalConverter<T, S> backwardConverter;
 
     protected AbstractSimpleBidirectionalConverter() {
-        this.forwardConverter = new SimpleUnidirectionalConverter<S, T>() {
-            @Override
-            public T convert(S source) throws Exception {
-                return safeConvertForward(source);
-            }
-        };
-        this.backwardConverter = new SimpleUnidirectionalConverter<T, S>() {
-            @Override
-            public S convert(T source) throws Exception {
-                return safeConvertBackward(source);
-            }
-        };
+        this.forwardConverter = this::safeConvertForward;
+        this.backwardConverter = this::safeConvertBackward;
     }
 
     /**

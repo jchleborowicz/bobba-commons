@@ -45,12 +45,7 @@ public class DefaultClipboardService implements ClipboardService {
 
     @Override
     public String[] listClipboardFiles() {
-        final String[] result = BASE_DIRECTORY.list(new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
-                return name.endsWith(CLIPBOARD_FILE_POSTFIX);
-            }
-        });
+        final String[] result = BASE_DIRECTORY.list((File dir, String name) -> name.endsWith(CLIPBOARD_FILE_POSTFIX));
         if (result == null) {
             return new String[]{};
         }

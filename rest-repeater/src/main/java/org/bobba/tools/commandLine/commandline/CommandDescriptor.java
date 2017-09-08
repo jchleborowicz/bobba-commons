@@ -39,36 +39,17 @@ public class CommandDescriptor {
 
     private static ArgumentsFetcher createArgumentFetcher(Class<?> parameterType, Method method, final int stringIndex) {
         if (parameterType == String.class) {
-            return new ArgumentsFetcher() {
-                @Override
-                public Object getArgument(String[] arguments, CommandLineContext context, CommandLineOutput output) {
-                    return stringIndex < arguments.length ? arguments[stringIndex] : null;
-                }
-            };
+            return (String[] arguments, CommandLineContext context, CommandLineOutput output) ->
+                    stringIndex < arguments.length ? arguments[stringIndex] : null;
         }
         if (parameterType == CommandLineContext.class) {
-            return new ArgumentsFetcher() {
-                @Override
-                public Object getArgument(String[] arguments, CommandLineContext context, CommandLineOutput output) {
-                    return context;
-                }
-            };
+            return (String[] arguments, CommandLineContext context, CommandLineOutput output) -> context;
         }
         if (parameterType == CommandLineOutput.class) {
-            return new ArgumentsFetcher() {
-                @Override
-                public Object getArgument(String[] arguments, CommandLineContext context, CommandLineOutput output) {
-                    return output;
-                }
-            };
+            return (arguments, context, output) -> output;
         }
         if (parameterType == String[].class) {
-            return new ArgumentsFetcher() {
-                @Override
-                public Object getArgument(String[] arguments, CommandLineContext context, CommandLineOutput output) {
-                    return arguments;
-                }
-            };
+            return (arguments, context, output) -> arguments;
         }
         throw new RuntimeException("Unexpected method parameter for module " + method.getDeclaringClass()
                 + ", method " + method.getName() + ", parameter type: " + parameterType);
@@ -121,6 +102,7 @@ public class CommandDescriptor {
         return Joiner.on(' ').join(this.getNames());
     }
 
+    @FunctionalInterface
     private interface ArgumentsFetcher {
         Object getArgument(String[] arguments, CommandLineContext context, CommandLineOutput output);
     }

@@ -34,14 +34,19 @@ public class ClipboardModule {
     }
 
     private void executeSubcommand(String subcommand, String subcommandArgument, CommandLineOutput output) {
-        if (subcommand.equals("w")) {
-            writeClipboardFile(subcommandArgument, output);
-        } else if (subcommand.equals("l")) {
-            printClipboardFiles(output);
-        } else if (subcommand.equals("r")) {
-            readFileIntoClipboard(subcommandArgument, output);
-        } else if (subcommand.equals("d")) {
-            deleteClipboardFile(subcommandArgument, output);
+        switch (subcommand) {
+            case "w":
+                writeClipboardFile(subcommandArgument, output);
+                break;
+            case "l":
+                printClipboardFiles(output);
+                break;
+            case "r":
+                readFileIntoClipboard(subcommandArgument, output);
+                break;
+            case "d":
+                deleteClipboardFile(subcommandArgument, output);
+                break;
         }
     }
 

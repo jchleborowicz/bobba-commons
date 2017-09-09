@@ -4,6 +4,12 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Maps;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.CharUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.bobba.tools.statest.common.RestAssuredCodeGenerator;
+import org.bobba.tools.tests.common.BobbaTestUtils;
 import org.bobba.tools.tests.common.har.HarDeserializer;
 import org.bobba.tools.tests.common.har.model.HarContent;
 import org.bobba.tools.tests.common.har.model.HarCookie;
@@ -14,12 +20,6 @@ import org.bobba.tools.tests.common.har.model.HarModel;
 import org.bobba.tools.tests.common.har.model.HarPostData;
 import org.bobba.tools.tests.common.har.model.HarRequest;
 import org.bobba.tools.tests.common.har.model.HarResponse;
-import org.bobba.tools.statest.common.RestAssuredCodeGenerator;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.CharUtils;
-import org.apache.commons.lang3.StringEscapeUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.bobba.tools.tests.common.BobbaTestUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,13 +32,14 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static java.util.stream.Collectors.toList;
 import static org.apache.commons.lang3.Validate.notEmpty;
 
 public class RestTestGenerator {
 
     private static final String INDENT = "    ";
     public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-    private static final Pattern urlPattern = Pattern.compile("https?://[a-zA-Z0-9\\.\\-]+/(.*)");
+    private static final Pattern urlPattern = Pattern.compile("https?://[a-zA-Z0-9.\\-]+/(.*)");
 
     private final PrintStream outputStream;
     private int indentLevel;
@@ -56,29 +57,47 @@ public class RestTestGenerator {
             System.out.println("ERROR: Please provide HAR file name as a run parameter.");
             System.exit(-1);
         }
-        final HarModel har = HarDeserializer.deserializeFile(args[0]);
-        final HarLog harLog = har.getLog();
-        final List<HarEntry> entries = filter(harLog.getEntries());
+        final String generatedFilesBase = "/tmp/test";
 
-        final RestTestGenerator restTestGenerator = new RestTestGenerator(System.out);
-        for (HarEntry entry : entries) {
-            restTestGenerator.skipHeaders("Authorization", "Origin", "Host", "Accept-Language", "User-Agent",
-                    "Content-Type", "Referer", "x-requested-with", "cookie", "Accept", "Accept-Encoding",
-                    "Connection", "Content-Length", "Upgrade-Insecure-Requests", "Cache-Control");
-            restTestGenerator.skipCookies("__utma", "__utmz", "__utmt", "_gat", "sessionTimeout", "__utma",
-                    "__utmb", "__utmc", "transaction", "_ga", "sessionTimeout1");
-            restTestGenerator.appendTest(entry);
-        }
+        final List<HarEntry> entries = getHarEntriesFromFile(args[0]);
+
+        final RestTestGenerator restTestGenerator = createRestTestGenerator();
+
+        entries.forEach(entry -> {
+            restTestGenerator.appendTest(entry, generatedFilesBase);
+        });
     }
 
-    private static List<HarEntry> filter(List<HarEntry> entries) {
-        final List<HarEntry> result = new ArrayList<>();
-        for (HarEntry entry : entries) {
-            if (!shouldBeSkipped(entry)) {
-                result.add(entry);
-            }
-        }
-        return result;
+    private static List<HarEntry> getHarEntriesFromFile(String harInputFileName) {
+        final HarLog harLog = readHarLog(harInputFileName);
+
+        return excludeSkippedEntries(harLog.getEntries());
+    }
+
+    private static RestTestGenerator createRestTestGenerator() {
+        final RestTestGenerator restTestGenerator = new RestTestGenerator(System.out);
+
+        restTestGenerator.skipHeaders("Authorization", "Origin", "Host", "Accept-Language", "User-Agent",
+                "Content-Type", "Referer", "x-requested-with", "cookie", "Accept", "Accept-Encoding",
+                "Connection", "Content-Length", "Upgrade-Insecure-Requests", "Cache-Control");
+        restTestGenerator.skipCookies("__utma", "__utmz", "__utmt", "_gat", "sessionTimeout", "__utma",
+                "__utmb", "__utmc", "transaction", "_ga", "sessionTimeout1");
+        return restTestGenerator;
+    }
+
+    private static HarLog readHarLog(String harInputFileName) {
+        final HarModel har = HarDeserializer.deserializeFile(harInputFileName);
+        return har.getLog();
+    }
+
+    private static List<HarEntry> excludeSkippedEntries(List<HarEntry> entries) {
+        return entries.stream()
+                .filter(RestTestGenerator::shouldBeIncluded)
+                .collect(toList());
+    }
+
+    private static boolean shouldBeIncluded(HarEntry entry) {
+        return !shouldBeSkipped(entry);
     }
 
     private static boolean shouldBeSkipped(HarEntry entry) {
@@ -121,7 +140,7 @@ public class RestTestGenerator {
         cookiesToSkip.add(cookieName.toUpperCase());
     }
 
-    public void appendTest(HarEntry entry) {
+    public void appendTest(HarEntry entry, String generatedFilesBase) {
         increaseIndent();
         line("@RestTest(order = " + testIndex + ")");
         testIndex++;
@@ -135,7 +154,6 @@ public class RestTestGenerator {
         increaseIndent();
 
         printExpectSection(entry);
-        final String generatedFilesBase = "C:\\prj\\somewhere";
         printGivenSection(entry.getRequest(), hasAuthorization, generatedFilesBase + methodName + ".json");
         writeResponse(entry.getResponse(), generatedFilesBase + methodName + "-response.json");
         printWhenSection(entry.getRequest());
@@ -200,6 +218,7 @@ public class RestTestGenerator {
         }
     }
 
+    @SuppressWarnings("SameParameterValue")
     private boolean hasHeader(HarEntry entry, String headerName) {
         final List<HarHeader> headers = entry.getRequest().getHeaders();
 
@@ -314,6 +333,7 @@ public class RestTestGenerator {
         decreaseIndent(1);
     }
 
+    @SuppressWarnings("SameParameterValue")
     private void decreaseIndent(int indent) {
         indentLevel -= Math.abs(indent);
     }

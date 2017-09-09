@@ -5,7 +5,7 @@ import com.google.common.collect.ImmutableListMultimap;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multimaps;
-import org.bobba.tools.commons.utils.CommonUtils;
+import org.bobba.tools.statest.utils.CommonUtils;
 import org.bobba.tools.statest.common.AnnotatedParameterFactories;
 import org.junit.Test;
 import org.junit.runner.notification.Failure;

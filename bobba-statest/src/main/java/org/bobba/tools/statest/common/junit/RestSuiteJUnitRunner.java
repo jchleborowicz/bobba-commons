@@ -1,6 +1,6 @@
 package org.bobba.tools.statest.common.junit;
 
-import org.bobba.tools.commons.utils.CommonUtils;
+import org.bobba.tools.statest.utils.CommonUtils;
 import org.junit.runner.Description;
 import org.junit.runner.Runner;
 import org.junit.runner.notification.Failure;

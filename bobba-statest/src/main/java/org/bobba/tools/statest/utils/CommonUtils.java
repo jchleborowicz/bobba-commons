@@ -1,4 +1,4 @@
-package org.bobba.tools.commons.utils;
+package org.bobba.tools.statest.utils;
 
 import javassist.ClassPool;
 import javassist.CtClass;

@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableMap;
-import org.bobba.tools.commons.utils.CommonUtils;
+import org.bobba.tools.statest.utils.CommonUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;

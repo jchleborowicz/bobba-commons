@@ -1,6 +1,5 @@
-package org.bobba.tools.commons;
+package org.bobba.tools.statest.utils;
 
-import org.bobba.tools.commons.utils.CommonUtils;
 import org.junit.Test;
 
 public class CommonUtilsTest {

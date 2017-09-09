@@ -39,7 +39,6 @@
     </properties>
 
     <modules>
-        <module>bobba-commons</module>
         <module>bobba-command-line</module>
         <module>bobba-converters</module>
         <module>bobba-identifiable-enum</module>

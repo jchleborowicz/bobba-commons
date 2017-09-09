@@ -1,7 +1,7 @@
 package org.bobba.tools.statest.common.junit;
 
 import com.google.common.collect.ImmutableMap;
-import org.bobba.tools.commons.utils.CommonUtils;
+import org.bobba.tools.statest.utils.CommonUtils;
 import org.bobba.tools.statest.common.RestTestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.runners.model.FrameworkMethod;

@@ -1,6 +1,6 @@
 package org.bobba.tools.statest.common;
 
-import org.bobba.tools.commons.utils.CommonUtils;
+import org.bobba.tools.statest.utils.CommonUtils;
 import com.jayway.restassured.response.Headers;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

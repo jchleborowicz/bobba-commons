@@ -14,10 +14,6 @@
         <!-- Compile -->
         <dependency>
             <groupId>bobba-commons</groupId>
-            <artifactId>bobba-commons</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>bobba-commons</groupId>
             <artifactId>bobba-test-common</artifactId>
         </dependency>
 

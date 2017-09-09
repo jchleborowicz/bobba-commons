@@ -20,12 +20,12 @@ public class GenericEnumUserType implements UserType, ParameterizedType {
     private static final String DEFAULT_VALUE_OF_METHOD_NAME = "getById";
 
     private Class<? extends Enum> enumClass;
-    private Class<?> identifierType;
     private Method identifierMethod;
     private Method valueOfMethod;
     private NullableType type;
     private int[] sqlTypes;
 
+    @Override
     public void setParameterValues(Properties parameters) {
         String enumClassName = parameters.getProperty("enumClass");
         try {
@@ -36,6 +36,7 @@ public class GenericEnumUserType implements UserType, ParameterizedType {
 
         String identifierMethodName = parameters.getProperty("identifierMethod", DEFAULT_IDENTIFIER_METHOD_NAME);
 
+        Class<?> identifierType;
         try {
             identifierMethod = enumClass.getMethod(identifierMethodName);
             identifierType = identifierMethod.getReturnType();
@@ -59,10 +60,12 @@ public class GenericEnumUserType implements UserType, ParameterizedType {
         }
     }
 
+    @Override
     public Class returnedClass() {
         return enumClass;
     }
 
+    @Override
     public Object nullSafeGet(ResultSet rs, String[] names, Object owner) throws HibernateException, SQLException {
         Object identifier = type.get(rs, names[0]);
         if (rs.wasNull()) {
@@ -77,6 +80,7 @@ public class GenericEnumUserType implements UserType, ParameterizedType {
         }
     }
 
+    @Override
     public void nullSafeSet(PreparedStatement st, Object value, int index) throws HibernateException, SQLException {
         try {
             if (value == null) {
@@ -91,35 +95,44 @@ public class GenericEnumUserType implements UserType, ParameterizedType {
         }
     }
 
+    @Override
     public int[] sqlTypes() {
         return sqlTypes;
     }
 
+    @Override
     public Object assemble(Serializable cached, Object owner) throws HibernateException {
         return cached;
     }
 
+    @Override
     public Object deepCopy(Object value) throws HibernateException {
         return value;
     }
 
+    @Override
     public Serializable disassemble(Object value) throws HibernateException {
         return (Serializable) value;
     }
 
+    @Override
     public boolean equals(Object x, Object y) throws HibernateException {
         return x == y;
     }
 
+    @Override
     public int hashCode(Object x) throws HibernateException {
         return x.hashCode();
     }
 
+    @Override
     public boolean isMutable() {
         return false;
     }
 
+    @Override
     public Object replace(Object original, Object target, Object owner) throws HibernateException {
         return original;
     }
+
 }

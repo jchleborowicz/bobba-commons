@@ -1,4 +1,4 @@
-package org.bobba.tools.commons.functions;
+package org.bobba.tools.statest.utils;
 
 import com.google.common.collect.Lists;
 

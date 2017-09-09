@@ -24,7 +24,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
-public class RestTestJUnitClassRunner extends BlockJUnit4ClassRunner {
+public class StatestJUnitClassRunner extends BlockJUnit4ClassRunner {
 
     private static final Comparator<FrameworkMethod> TEST_ORDER_COMPARATOR = new TestOrderComparator();
     private static final TestStateRepository TEST_STATE_REPOSITORY;
@@ -36,7 +36,7 @@ public class RestTestJUnitClassRunner extends BlockJUnit4ClassRunner {
         TEST_STATE_REPOSITORY = new FileBasedTestStateRepository(repositoryDir);
     }
 
-    public RestTestJUnitClassRunner(Class<?> klass) throws InitializationError {
+    public StatestJUnitClassRunner(Class<?> klass) throws InitializationError {
         super(klass);
     }
 
@@ -51,7 +51,7 @@ public class RestTestJUnitClassRunner extends BlockJUnit4ClassRunner {
 
     private List<FrameworkMethod> getTestMethods() {
         final List<FrameworkMethod> result =
-                new ArrayList<>(getTestClass().getAnnotatedMethods(RestTest.class));
+                new ArrayList<>(getTestClass().getAnnotatedMethods(Statest.class));
         final List<FrameworkMethod> testAnnotatedMethods = getTestClass().getAnnotatedMethods(Test.class);
         for (FrameworkMethod testAnnotatedMethod : testAnnotatedMethods) {
             if (!result.contains(testAnnotatedMethod)) {
@@ -82,7 +82,7 @@ public class RestTestJUnitClassRunner extends BlockJUnit4ClassRunner {
 
     @Override
     protected Statement methodInvoker(FrameworkMethod method, Object test) {
-        return new InvokeRestTestMethodStatement(method, test, TEST_STATE_REPOSITORY,
+        return new InvokeStatestMethodStatement(method, test, TEST_STATE_REPOSITORY,
                 determineCustomParameterFactories());
     }
 
@@ -140,8 +140,8 @@ public class RestTestJUnitClassRunner extends BlockJUnit4ClassRunner {
     private static class TestOrderComparator implements Comparator<FrameworkMethod> {
         @Override
         public int compare(FrameworkMethod o1, FrameworkMethod o2) {
-            final RestTest o1Annotation = CommonUtils.getMethodAnnotation(o1.getMethod(), RestTest.class);
-            final RestTest o2Annotation = CommonUtils.getMethodAnnotation(o2.getMethod(), RestTest.class);
+            final Statest o1Annotation = CommonUtils.getMethodAnnotation(o1.getMethod(), Statest.class);
+            final Statest o2Annotation = CommonUtils.getMethodAnnotation(o2.getMethod(), Statest.class);
 
             if (o1Annotation == null) {
                 if (o2Annotation == null) {

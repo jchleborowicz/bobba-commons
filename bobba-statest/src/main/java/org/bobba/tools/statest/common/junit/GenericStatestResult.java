@@ -7,22 +7,22 @@ import java.util.List;
 import static org.apache.commons.lang3.Validate.notEmpty;
 import static org.apache.commons.lang3.Validate.notNull;
 
-public class GenericRestTestResult implements Iterable<GenericRestTestResult.Entry> {
+public class GenericStatestResult implements Iterable<GenericStatestResult.Entry> {
 
     private final List<Entry> entries = new ArrayList<>();
 
-    public GenericRestTestResult() {
+    public GenericStatestResult() {
     }
 
-    public GenericRestTestResult(Object[] objects) {
+    public GenericStatestResult(Object[] objects) {
         addAll(objects);
     }
 
-    public static GenericRestTestResult of(Object... objects) {
-        return new GenericRestTestResult(objects);
+    public static GenericStatestResult of(Object... objects) {
+        return new GenericStatestResult(objects);
     }
 
-    public GenericRestTestResult addAll(Object[] objects) {
+    public GenericStatestResult addAll(Object[] objects) {
         notNull(objects, "Argument cannot be null");
         for (Object object : objects) {
             add(object);
@@ -30,12 +30,12 @@ public class GenericRestTestResult implements Iterable<GenericRestTestResult.Ent
         return this;
     }
 
-    public GenericRestTestResult add(Object object) {
+    public GenericStatestResult add(Object object) {
         this.entries.add(new Entry(object));
         return this;
     }
 
-    public GenericRestTestResult add(String objectId, Object object) {
+    public GenericStatestResult add(String objectId, Object object) {
         this.entries.add(new Entry(objectId, object));
         return this;
     }

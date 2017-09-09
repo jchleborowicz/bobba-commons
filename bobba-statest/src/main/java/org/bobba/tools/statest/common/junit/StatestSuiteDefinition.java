@@ -7,13 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class RestTestSuiteDefinition {
+public class StatestSuiteDefinition {
 
     private final List<TestRunnerCreator> testRunnerCreators;
     private final AtomicInteger idGenerator = new AtomicInteger(0);
 
 
-    public RestTestSuiteDefinition(List<TestRunnerCreator> testRunnerCreators) {
+    public StatestSuiteDefinition(List<TestRunnerCreator> testRunnerCreators) {
         this.testRunnerCreators = ImmutableList.copyOf(testRunnerCreators);
     }
 
@@ -50,8 +50,8 @@ public class RestTestSuiteDefinition {
             return this;
         }
 
-        public RestTestSuiteDefinition build() {
-            return new RestTestSuiteDefinition(testRunnerCreators);
+        public StatestSuiteDefinition build() {
+            return new StatestSuiteDefinition(testRunnerCreators);
         }
 
     }
@@ -66,7 +66,7 @@ public class RestTestSuiteDefinition {
 
         public Runner createRunner(Class<?> suiteTestClass, int testUniqueId) {
             try {
-                return new RestTestJUnitClassRunner(testClass);
+                return new StatestJUnitClassRunner(testClass);
             } catch (Throwable throwable) {
                 throw new RuntimeException(throwable);
             }

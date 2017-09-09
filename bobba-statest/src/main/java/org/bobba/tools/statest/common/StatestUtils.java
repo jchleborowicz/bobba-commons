@@ -8,11 +8,11 @@ import org.slf4j.LoggerFactory;
 
 import static org.apache.commons.lang3.Validate.notNull;
 
-public final class RestTestUtils {
+public final class StatestUtils {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(RestTestUtils.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(StatestUtils.class);
 
-    private RestTestUtils() {
+    private StatestUtils() {
     }
 
     public static Headers jsonHeaders() {

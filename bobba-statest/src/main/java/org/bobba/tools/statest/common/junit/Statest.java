@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface RestTest {
+public @interface Statest {
     int order() default 0;
     String storeResultIn() default "";
 }

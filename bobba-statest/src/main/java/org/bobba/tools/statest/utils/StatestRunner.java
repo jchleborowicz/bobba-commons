@@ -37,9 +37,9 @@ import static java.util.stream.Collectors.toList;
 import static org.apache.commons.lang3.ArrayUtils.isEmpty;
 import static org.bobba.tools.statest.utils.CommonUtils.getClassAnnotation;
 
-public class RestTestRunner {
+public class StatestRunner {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(RestTestRunner.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(StatestRunner.class);
 
     public static final String OPTION_LIST_TESTS = "l";
     public static final String OPTION_PERFORM_TESTS = "t";
@@ -188,23 +188,23 @@ public class RestTestRunner {
     private static Iterable<Class<?>> getAllTestClasses() {
         final ArrayListConsumer<Class<?>> consumer = new ArrayListConsumer<>();
 
-        iterateClassesFromSameJar(RestTestRunner.class, consumer);
+        iterateClassesFromSameJar(StatestRunner.class, consumer);
 
         final List<Class<?>> content = consumer.getContent();
 
         sortBySimpleClassName(content);
 
-        final Class<?> baseRestTestClass;
+        final Class<?> baseStatestClass;
         try {
             //this is obtained from reflection by purpose
-            baseRestTestClass = Class.forName("org.bobba.SomeBaseClass");
+            baseStatestClass = Class.forName("org.bobba.SomeBaseClass");
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
 
         return content.stream()
                 .filter((Class<?> input) ->
-                        baseRestTestClass.isAssignableFrom(input) || getClassAnnotation(input, RunWith.class) != null)
+                        baseStatestClass.isAssignableFrom(input) || getClassAnnotation(input, RunWith.class) != null)
                 .collect(toList());
     }
 

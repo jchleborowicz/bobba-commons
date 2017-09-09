@@ -1,16 +1,16 @@
 package org.bobba.tools.statest;
 
-import org.bobba.tools.statest.common.junit.RestTest;
-import org.bobba.tools.statest.common.junit.RestTestJUnitClassRunner;
+import org.bobba.tools.statest.common.junit.Statest;
+import org.bobba.tools.statest.common.junit.StatestJUnitClassRunner;
 import org.bobba.tools.statest.common.junit.TestState;
 import org.junit.runner.RunWith;
 
 import static com.jayway.restassured.RestAssured.expect;
 
-@RunWith(RestTestJUnitClassRunner.class)
+@RunWith(StatestJUnitClassRunner.class)
 public class StatestExample {
 
-    @RestTest(order = 1, storeResultIn = "countryAlpha2Code")
+    @Statest(order = 1, storeResultIn = "countryAlpha2Code")
     public String countryGetAll() {
         return
             expect()
@@ -24,7 +24,7 @@ public class StatestExample {
                 .body().path("RestResponse.result[0].alpha2_code");
     }
 
-    @RestTest(order = 2, storeResultIn = "countryName")
+    @Statest(order = 2, storeResultIn = "countryName")
     public String countryGetIso2CodeIN(@TestState(objectId = "countryAlpha2Code") String countryAlpha2Code) {
         return
             expect()
@@ -38,7 +38,7 @@ public class StatestExample {
                 .body().path("RestResponse.result.name");
     }
 
-    @RestTest(order = 3)
+    @Statest(order = 3)
     public void countrySearch(@TestState(objectId = "countryName") String countryName) {
         expect()
             .statusCode(200)

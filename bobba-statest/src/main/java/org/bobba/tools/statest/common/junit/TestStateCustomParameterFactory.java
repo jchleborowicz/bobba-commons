@@ -1,6 +1,6 @@
 package org.bobba.tools.statest.common.junit;
 
-import org.bobba.tools.statest.common.RestTestUtils;
+import org.bobba.tools.statest.common.StatestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +32,7 @@ public class TestStateCustomParameterFactory implements CustomParameterFactory<T
 
     private String determineObjectId(Class<?> parameterType, TestState annotation) {
         return StringUtils.isEmpty(annotation.objectId())
-                ? RestTestUtils.defaultObjectId(parameterType) : annotation.objectId();
+                ? StatestUtils.defaultObjectId(parameterType) : annotation.objectId();
     }
 
 }

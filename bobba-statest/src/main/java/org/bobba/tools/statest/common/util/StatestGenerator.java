@@ -35,7 +35,7 @@ import java.util.regex.Pattern;
 import static java.util.stream.Collectors.toList;
 import static org.apache.commons.lang3.StringUtils.defaultIfEmpty;
 
-public class RestTestGenerator {
+public class StatestGenerator {
 
     private static final String INDENT = "    ";
     public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
@@ -48,7 +48,7 @@ public class RestTestGenerator {
     private final Set<String> cookiesToSkip = new HashSet<>();
     private final Map<String, Integer> methodCounters = Maps.newHashMap();
 
-    public RestTestGenerator(PrintStream outputStream) {
+    public StatestGenerator(PrintStream outputStream) {
         this.outputStream = outputStream;
     }
 
@@ -61,9 +61,9 @@ public class RestTestGenerator {
 
         final List<HarEntry> entries = getHarEntriesFromFile(args[0]);
 
-        final RestTestGenerator restTestGenerator = createRestTestGenerator();
+        final StatestGenerator statestGenerator = createStatestGenerator();
 
-        entries.forEach(entry -> restTestGenerator.appendTest(entry, generatedFilesBase));
+        entries.forEach(entry -> statestGenerator.appendTest(entry, generatedFilesBase));
     }
 
     private static List<HarEntry> getHarEntriesFromFile(String harInputFileName) {
@@ -72,15 +72,15 @@ public class RestTestGenerator {
         return excludeSkippedEntries(harLog.getEntries());
     }
 
-    private static RestTestGenerator createRestTestGenerator() {
-        final RestTestGenerator restTestGenerator = new RestTestGenerator(System.out);
+    private static StatestGenerator createStatestGenerator() {
+        final StatestGenerator statestGenerator = new StatestGenerator(System.out);
 
-        restTestGenerator.skipHeaders("Authorization", "Origin", "Host", "Accept-Language", "User-Agent",
+        statestGenerator.skipHeaders("Authorization", "Origin", "Host", "Accept-Language", "User-Agent",
                 "Content-Type", "Referer", "x-requested-with", "cookie", "Accept", "Accept-Encoding",
                 "Connection", "Content-Length", "Upgrade-Insecure-Requests", "Cache-Control");
-        restTestGenerator.skipCookies("__utma", "__utmz", "__utmt", "_gat", "sessionTimeout", "__utma",
+        statestGenerator.skipCookies("__utma", "__utmz", "__utmt", "_gat", "sessionTimeout", "__utma",
                 "__utmb", "__utmc", "transaction", "_ga", "sessionTimeout1");
-        return restTestGenerator;
+        return statestGenerator;
     }
 
     private static HarLog readHarLog(String harInputFileName) {
@@ -90,7 +90,7 @@ public class RestTestGenerator {
 
     private static List<HarEntry> excludeSkippedEntries(List<HarEntry> entries) {
         return entries.stream()
-                .filter(RestTestGenerator::shouldBeIncluded)
+                .filter(StatestGenerator::shouldBeIncluded)
                 .collect(toList());
     }
 
@@ -140,7 +140,7 @@ public class RestTestGenerator {
 
     public void appendTest(HarEntry entry, String generatedFilesBase) {
         increaseIndent();
-        line("@RestTest(order = " + testIndex + ")");
+        line("@Statest(order = " + testIndex + ")");
         testIndex++;
         final List<String> params = new ArrayList<>();
         boolean hasAuthorization = hasHeader(entry, "Authorization");

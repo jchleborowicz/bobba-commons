@@ -18,20 +18,20 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.List;
 
-public class RestSuiteJUnitRunner extends ParentRunner<Runner> {
+public class StatestSuiteJUnitRunner extends ParentRunner<Runner> {
 
     private final List<Runner> runners;
 
-    public RestSuiteJUnitRunner(Class<?> testClass) throws InitializationError {
+    public StatestSuiteJUnitRunner(Class<?> testClass) throws InitializationError {
         super(testClass);
-        final RestTestSuiteDefinition definition = createRestSuiteDefinition(testClass);
+        final StatestSuiteDefinition definition = createRestSuiteDefinition(testClass);
         runners = definition.createRunners(testClass);
     }
 
-    private static RestTestSuiteDefinition createRestSuiteDefinition(Class<?> testClass) {
+    private static StatestSuiteDefinition createRestSuiteDefinition(Class<?> testClass) {
         try {
             final Method method = getDefinitionFactoryMethod(testClass);
-            return (RestTestSuiteDefinition) method.invoke(null);
+            return (StatestSuiteDefinition) method.invoke(null);
         } catch (NoSuchMethodException e) {
             throw new RuntimeException("Could not find createDefinition method in class " + testClass.getName());
         } catch (InvocationTargetException | IllegalAccessException e) {
@@ -42,16 +42,16 @@ public class RestSuiteJUnitRunner extends ParentRunner<Runner> {
     private static Method getDefinitionFactoryMethod(Class<?> testClass) throws NoSuchMethodException {
         final Method method = findDefinitionFactoryAnnotatedMethod(testClass);
 
-        if (method.getReturnType() != RestTestSuiteDefinition.class) {
+        if (method.getReturnType() != StatestSuiteDefinition.class) {
             throw new RuntimeException("createDefinition method in class " + testClass.getName()
-                    + " should return RestTestSuiteDefinition class");
+                    + " should return StatestSuiteDefinition class");
         }
         return method;
     }
 
     private static Method findDefinitionFactoryAnnotatedMethod(Class<?> testClass) {
         final List<Method> methods = CommonUtils.getMethodsAnnotatedWith(testClass,
-                RestSuiteJUnitRunner.DefinitionFactory.class);
+                StatestSuiteJUnitRunner.DefinitionFactory.class);
 
         final int annotatedMethodCount = methods.size();
         if (annotatedMethodCount == 1) {

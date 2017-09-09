@@ -2,7 +2,7 @@ package org.bobba.tools.statest.common.junit;
 
 import com.google.common.collect.ImmutableMap;
 import org.bobba.tools.statest.utils.CommonUtils;
-import org.bobba.tools.statest.common.RestTestUtils;
+import org.bobba.tools.statest.common.StatestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.Statement;
@@ -14,18 +14,18 @@ import java.lang.reflect.Method;
 
 import static org.apache.commons.lang3.Validate.notNull;
 
-public class InvokeRestTestMethodStatement extends Statement {
+public class InvokeStatestMethodStatement extends Statement {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(InvokeRestTestMethodStatement.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(InvokeStatestMethodStatement.class);
 
     private final FrameworkMethod testMethod;
     private final Object target;
     private final TestStateRepository testStateRepository;
     private final ImmutableMap<Class<? extends Annotation>, CustomParameterFactory<?>> customParameterFactories;
 
-    public InvokeRestTestMethodStatement(FrameworkMethod testMethod, Object target,
-                                         TestStateRepository testStateRepository,
-                                         ImmutableMap<Class<? extends Annotation>, CustomParameterFactory<?>>
+    public InvokeStatestMethodStatement(FrameworkMethod testMethod, Object target,
+                                        TestStateRepository testStateRepository,
+                                        ImmutableMap<Class<? extends Annotation>, CustomParameterFactory<?>>
                                                  customParameterFactories) {
         this.testMethod = testMethod;
         this.target = target;
@@ -83,7 +83,7 @@ public class InvokeRestTestMethodStatement extends Statement {
             return (T) result;
         }
 
-        final String parameterId = RestTestUtils.defaultObjectId(parameterType);
+        final String parameterId = StatestUtils.defaultObjectId(parameterType);
 
         final T result = testStateRepository.load(parameterId, parameterType);
         LOGGER.info("Loaded test state object. Id: " + parameterId + ", value: " + result);
@@ -105,35 +105,35 @@ public class InvokeRestTestMethodStatement extends Statement {
     }
 
     private void storeResult(Object object, Method method) {
-        final RestTest restTestAnnotation = CommonUtils.getMethodAnnotation(method, RestTest.class);
+        final Statest statestAnnotation = CommonUtils.getMethodAnnotation(method, Statest.class);
         final String annotationObjectId =
-                restTestAnnotation == null || StringUtils.isEmpty(restTestAnnotation.storeResultIn()) ? null :
-                        restTestAnnotation.storeResultIn().trim();
+                statestAnnotation == null || StringUtils.isEmpty(statestAnnotation.storeResultIn()) ? null :
+                        statestAnnotation.storeResultIn().trim();
         final Class<?> returnType = method.getReturnType();
         if (returnType == null || returnType == Void.class || returnType == Void.TYPE) {
             if (annotationObjectId != null) {
                 throw new RuntimeException(
-                        "Marked test result storage (@RestTest.storeResultIn) on method that returns void: " +
+                        "Marked test result storage (@Statest.storeResultIn) on method that returns void: " +
                                 CommonUtils.createCodePointer(method));
             }
             return;
         }
 
-        if (returnType == GenericRestTestResult.class) {
-            handleGenericResult((GenericRestTestResult) object, annotationObjectId);
+        if (returnType == GenericStatestResult.class) {
+            handleGenericResult((GenericStatestResult) object, annotationObjectId);
         } else {
             handleSimpleResult(object, annotationObjectId, returnType);
         }
     }
 
-    private void handleGenericResult(GenericRestTestResult result, String annotationObjectId) {
+    private void handleGenericResult(GenericStatestResult result, String annotationObjectId) {
         if (annotationObjectId != null) {
-            throw new RuntimeException("Explicitly specifying object id for GenericRestTestResult is not supported");
+            throw new RuntimeException("Explicitly specifying object id for GenericStatestResult is not supported");
         }
         if (result == null) {
             return;
         }
-        for (GenericRestTestResult.Entry entry : result) {
+        for (GenericStatestResult.Entry entry : result) {
             final Object value = entry.getValue();
             final String objectId = determineObjectId(entry, value);
             testStateRepository.store(objectId, value);
@@ -145,17 +145,17 @@ public class InvokeRestTestMethodStatement extends Statement {
         testStateRepository.store(objectId, object);
     }
 
-    private String determineObjectId(GenericRestTestResult.Entry entry, Object value) {
+    private String determineObjectId(GenericStatestResult.Entry entry, Object value) {
         return StringUtils.isEmpty(entry.getObjectId()) ? defaultObjectId(value) : entry.getObjectId();
     }
 
     private String determineObjectId(String proposedObjectId, Class<?> returnType) {
-        return proposedObjectId == null ? RestTestUtils.defaultObjectId(returnType) : proposedObjectId;
+        return proposedObjectId == null ? StatestUtils.defaultObjectId(returnType) : proposedObjectId;
     }
 
     private String defaultObjectId(Object value) {
         notNull(value, "Cannot determine default object id for empty object");
-        return RestTestUtils.defaultObjectId(value.getClass());
+        return StatestUtils.defaultObjectId(value.getClass());
     }
 
 }

@@ -1,10 +1,10 @@
 package org.bobba.tools.statest.utils;
 
 import org.bobba.tools.statest.common.junit.Statest;
-import org.bobba.tools.statest.common.junit.StatestJUnitClassRunner;
+import org.bobba.tools.statest.common.junit.StatestRunner;
 import org.junit.runner.RunWith;
 
-@RunWith(StatestJUnitClassRunner.class)
+@RunWith(StatestRunner.class)
 public class AlwaysFailTest {
 
     @Statest

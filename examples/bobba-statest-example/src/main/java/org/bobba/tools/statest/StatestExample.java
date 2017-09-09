@@ -1,13 +1,13 @@
 package org.bobba.tools.statest;
 
 import org.bobba.tools.statest.common.junit.Statest;
-import org.bobba.tools.statest.common.junit.StatestJUnitClassRunner;
+import org.bobba.tools.statest.common.junit.StatestRunner;
 import org.bobba.tools.statest.common.junit.TestState;
 import org.junit.runner.RunWith;
 
 import static com.jayway.restassured.RestAssured.expect;
 
-@RunWith(StatestJUnitClassRunner.class)
+@RunWith(StatestRunner.class)
 public class StatestExample {
 
     @Statest(order = 1, storeResultIn = "countryAlpha2Code")

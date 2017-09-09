@@ -66,7 +66,7 @@ public class StatestSuiteDefinition {
 
         public Runner createRunner(Class<?> suiteTestClass, int testUniqueId) {
             try {
-                return new StatestJUnitClassRunner(testClass);
+                return new StatestRunner(testClass);
             } catch (Throwable throwable) {
                 throw new RuntimeException(throwable);
             }

@@ -24,7 +24,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
-public class StatestJUnitClassRunner extends BlockJUnit4ClassRunner {
+public class StatestRunner extends BlockJUnit4ClassRunner {
 
     private static final Comparator<FrameworkMethod> TEST_ORDER_COMPARATOR = new TestOrderComparator();
     private static final TestStateRepository TEST_STATE_REPOSITORY;
@@ -36,7 +36,7 @@ public class StatestJUnitClassRunner extends BlockJUnit4ClassRunner {
         TEST_STATE_REPOSITORY = new FileBasedTestStateRepository(repositoryDir);
     }
 
-    public StatestJUnitClassRunner(Class<?> klass) throws InitializationError {
+    public StatestRunner(Class<?> klass) throws InitializationError {
         super(klass);
     }
 

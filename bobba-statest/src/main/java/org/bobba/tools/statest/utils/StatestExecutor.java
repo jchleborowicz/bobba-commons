@@ -37,9 +37,9 @@ import static java.util.stream.Collectors.toList;
 import static org.apache.commons.lang3.ArrayUtils.isEmpty;
 import static org.bobba.tools.statest.utils.CommonUtils.getClassAnnotation;
 
-public class StatestRunner {
+public class StatestExecutor {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(StatestRunner.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(StatestExecutor.class);
 
     public static final String OPTION_LIST_TESTS = "l";
     public static final String OPTION_PERFORM_TESTS = "t";
@@ -188,7 +188,7 @@ public class StatestRunner {
     private static Iterable<Class<?>> getAllTestClasses() {
         final ArrayListConsumer<Class<?>> consumer = new ArrayListConsumer<>();
 
-        iterateClassesFromSameJar(StatestRunner.class, consumer);
+        iterateClassesFromSameJar(StatestExecutor.class, consumer);
 
         final List<Class<?>> content = consumer.getContent();
 

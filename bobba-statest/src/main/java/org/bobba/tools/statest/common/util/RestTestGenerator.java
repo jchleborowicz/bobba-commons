@@ -33,7 +33,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static java.util.stream.Collectors.toList;
-import static org.apache.commons.lang3.Validate.notEmpty;
+import static org.apache.commons.lang3.StringUtils.defaultIfEmpty;
 
 public class RestTestGenerator {
 
@@ -196,14 +196,14 @@ public class RestTestGenerator {
                 uppercase = true;
             }
         }
-        return notEmpty(result.toString(), "Empty method name for url: %s", urlText);
+        return defaultIfEmpty(result.toString(), "test");
     }
 
     private void writeResponse(HarResponse response, String outputFileName) {
         final HarContent content = response.getContent();
         if (content != null && StringUtils.isNotBlank(content.getText())) {
             final String text;
-            if ("application/json".equals(content.getMimeType())) {
+            if (content.getMimeType().startsWith("application/json")) {
                 text = formatJson(content.getText());
             } else {
                 text = content.getText();

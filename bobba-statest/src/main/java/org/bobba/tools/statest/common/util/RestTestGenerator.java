@@ -63,9 +63,7 @@ public class RestTestGenerator {
 
         final RestTestGenerator restTestGenerator = createRestTestGenerator();
 
-        entries.forEach(entry -> {
-            restTestGenerator.appendTest(entry, generatedFilesBase);
-        });
+        entries.forEach(entry -> restTestGenerator.appendTest(entry, generatedFilesBase));
     }
 
     private static List<HarEntry> getHarEntriesFromFile(String harInputFileName) {

@@ -9,12 +9,16 @@
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+    <properties>
+        <bobba-commons.version>${project.version}</bobba-commons.version>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>bobba-commons</groupId>
                 <artifactId>bobba-statest</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>${bobba-commons.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -2,7 +2,7 @@
 
 ## Intro
 
-Tiny utility class for enums with identifiers.
+Tiny utility library for enums with identifiers.
 
 The concept is that java enum will have an identifier of arbitrary type.
 
@@ -48,12 +48,4 @@ public enum Status implements IdentifiableEnum<String> {
     }
 
 }
-
 ```
-
-## Hibernate
-
-Library contains hibernate type mapper for identifiable enums - GenericEnumUserType.
-
-hibernate dependency scope is provided, so you can use this library without necessity to include 
-hibernate jars in your classpath.

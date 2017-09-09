@@ -10,12 +10,4 @@
     <artifactId>bobba-identifiable-enum</artifactId>
     <modelVersion>4.0.0</modelVersion>
 
-    <dependencies>
-        <!-- Provided -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate</artifactId>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
 </project>

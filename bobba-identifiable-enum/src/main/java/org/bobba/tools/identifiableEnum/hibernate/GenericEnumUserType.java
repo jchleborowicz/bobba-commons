@@ -1,4 +1,4 @@
-package org.bobba.tools.commons.hibernate;
+package org.bobba.tools.identifiableEnum.hibernate;
 
 import org.hibernate.HibernateException;
 import org.hibernate.type.NullableType;

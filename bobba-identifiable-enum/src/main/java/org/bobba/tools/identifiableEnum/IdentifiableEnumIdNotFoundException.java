@@ -1,4 +1,4 @@
-package org.bobba.tools.commons;
+package org.bobba.tools.identifiableEnum;
 
 public class IdentifiableEnumIdNotFoundException extends RuntimeException {
     public IdentifiableEnumIdNotFoundException(String message) {

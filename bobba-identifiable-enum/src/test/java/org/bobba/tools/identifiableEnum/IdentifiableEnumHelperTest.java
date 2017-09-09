@@ -1,4 +1,4 @@
-package org.bobba.tools.commons;
+package org.bobba.tools.identifiableEnum;
 
 import org.junit.Test;
 

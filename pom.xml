@@ -44,6 +44,7 @@
         <module>bobba-commons</module>
         <module>bobba-command-line</module>
         <module>bobba-converters</module>
+        <module>bobba-identifiable-enum</module>
         <module>bobba-rest-repeater</module>
         <module>bobba-test-common</module>
         <module>bobba-statest</module>

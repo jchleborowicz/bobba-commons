@@ -1,10 +1,10 @@
-package org.bobba.tools.tests.common.har;
+package org.bobba.tools.statest.restAssuredCodeGenerator.har;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.bobba.tools.tests.common.har.model.HarEntry;
-import org.bobba.tools.tests.common.har.model.HarModel;
-import org.bobba.tools.tests.common.har.model.HarPostData;
-import org.bobba.tools.tests.common.har.model.HarRequest;
+import org.bobba.tools.statest.restAssuredCodeGenerator.har.model.HarEntry;
+import org.bobba.tools.statest.restAssuredCodeGenerator.har.model.HarModel;
+import org.bobba.tools.statest.restAssuredCodeGenerator.har.model.HarPostData;
+import org.bobba.tools.statest.restAssuredCodeGenerator.har.model.HarRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

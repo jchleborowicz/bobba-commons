@@ -1,4 +1,4 @@
-package org.bobba.tools.tests.common.har.model;
+package org.bobba.tools.statest.restAssuredCodeGenerator.har.model;
 
 import com.google.common.base.Joiner;
 import lombok.Data;

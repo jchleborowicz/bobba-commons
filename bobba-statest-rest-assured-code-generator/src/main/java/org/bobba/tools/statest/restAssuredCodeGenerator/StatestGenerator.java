@@ -8,7 +8,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.bobba.tools.tests.common.BobbaTestUtils;
 import org.bobba.tools.statest.restAssuredCodeGenerator.har.HarDeserializer;
 import org.bobba.tools.statest.restAssuredCodeGenerator.har.model.HarContent;
 import org.bobba.tools.statest.restAssuredCodeGenerator.har.model.HarCookie;
@@ -272,7 +271,15 @@ public class StatestGenerator {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return BobbaTestUtils.toPrettyJson(map);
+        return toPrettyJson(map);
+    }
+
+    public static String toPrettyJson(Object object) {
+        try {
+            return new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(object);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void printWhenSection(HarRequest request) {

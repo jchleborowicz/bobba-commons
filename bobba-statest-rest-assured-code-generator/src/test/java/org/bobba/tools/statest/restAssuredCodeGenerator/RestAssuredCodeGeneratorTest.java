@@ -1,4 +1,4 @@
-package org.bobba.tools.statest.common;
+package org.bobba.tools.statest.restAssuredCodeGenerator;
 
 import org.hamcrest.Matcher;
 import org.junit.Test;

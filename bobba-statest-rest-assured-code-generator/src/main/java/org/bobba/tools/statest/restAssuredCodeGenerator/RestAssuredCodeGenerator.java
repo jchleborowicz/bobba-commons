@@ -1,4 +1,4 @@
-package org.bobba.tools.statest.common;
+package org.bobba.tools.statest.restAssuredCodeGenerator;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

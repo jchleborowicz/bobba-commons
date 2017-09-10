@@ -1,4 +1,4 @@
-package org.bobba.tools.statest.common.util;
+package org.bobba.tools.statest.restAssuredCodeGenerator;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,7 +8,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.bobba.tools.statest.common.RestAssuredCodeGenerator;
 import org.bobba.tools.tests.common.BobbaTestUtils;
 import org.bobba.tools.tests.common.har.HarDeserializer;
 import org.bobba.tools.tests.common.har.model.HarContent;

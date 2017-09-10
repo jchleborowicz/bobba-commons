@@ -1,6 +1,6 @@
 package org.bobba.tools.statest.common.junit;
 
-import org.bobba.tools.statest.utils.CommonUtils;
+import org.bobba.tools.statest.utils.StatestCommonUtils;
 import org.junit.runner.Description;
 import org.junit.runner.Runner;
 import org.junit.runner.notification.Failure;
@@ -50,7 +50,7 @@ public class StatestSuiteJUnitRunner extends ParentRunner<Runner> {
     }
 
     private static Method findDefinitionFactoryAnnotatedMethod(Class<?> testClass) {
-        final List<Method> methods = CommonUtils.getMethodsAnnotatedWith(testClass,
+        final List<Method> methods = StatestCommonUtils.getMethodsAnnotatedWith(testClass,
                 StatestSuiteJUnitRunner.DefinitionFactory.class);
 
         final int annotatedMethodCount = methods.size();

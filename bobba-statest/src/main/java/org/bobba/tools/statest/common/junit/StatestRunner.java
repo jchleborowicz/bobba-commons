@@ -5,7 +5,7 @@ import com.google.common.collect.ImmutableListMultimap;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multimaps;
-import org.bobba.tools.statest.utils.CommonUtils;
+import org.bobba.tools.statest.utils.StatestCommonUtils;
 import org.bobba.tools.statest.common.AnnotatedParameterFactories;
 import org.junit.Test;
 import org.junit.runner.notification.Failure;
@@ -71,7 +71,7 @@ public class StatestRunner extends BlockJUnit4ClassRunner {
         for (Collection<FrameworkMethod> methods : methodsByName.asMap().values()) {
             if (methods.size() > 1) {
                 errorMessage.append(" - ")
-                        .append(CommonUtils.createCodePointer(methods.iterator().next().getMethod()))
+                        .append(StatestCommonUtils.createCodePointer(methods.iterator().next().getMethod()))
                         .append("\n");
             }
         }
@@ -140,8 +140,8 @@ public class StatestRunner extends BlockJUnit4ClassRunner {
     private static class TestOrderComparator implements Comparator<FrameworkMethod> {
         @Override
         public int compare(FrameworkMethod o1, FrameworkMethod o2) {
-            final Statest o1Annotation = CommonUtils.getMethodAnnotation(o1.getMethod(), Statest.class);
-            final Statest o2Annotation = CommonUtils.getMethodAnnotation(o2.getMethod(), Statest.class);
+            final Statest o1Annotation = StatestCommonUtils.getMethodAnnotation(o1.getMethod(), Statest.class);
+            final Statest o2Annotation = StatestCommonUtils.getMethodAnnotation(o2.getMethod(), Statest.class);
 
             if (o1Annotation == null) {
                 if (o2Annotation == null) {

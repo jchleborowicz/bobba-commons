@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableMap;
-import org.bobba.tools.statest.utils.CommonUtils;
+import org.bobba.tools.statest.utils.StatestCommonUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
@@ -31,7 +31,7 @@ public final class RestAssuredCodeGenerator {
     }
 
     public static Matcher<?> assertionGeneratingMatcher() {
-        final String codePointer = CommonUtils.createCodePointer(-1);
+        final String codePointer = StatestCommonUtils.createCodePointer(-1);
         return new BaseMatcher<String>() {
             @Override
             public boolean matches(Object item) {

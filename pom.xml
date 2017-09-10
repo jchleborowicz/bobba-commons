@@ -45,6 +45,7 @@
         <module>bobba-rest-repeater</module>
         <module>bobba-test-common</module>
         <module>bobba-statest</module>
+        <module>bobba-statest-rest-assured-code-generator</module>
     </modules>
 
     <dependencyManagement>
@@ -62,6 +63,11 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>bobba-test-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>bobba-statest</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

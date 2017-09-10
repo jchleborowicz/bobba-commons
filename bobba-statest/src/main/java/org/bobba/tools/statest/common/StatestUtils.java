@@ -1,6 +1,6 @@
 package org.bobba.tools.statest.common;
 
-import org.bobba.tools.statest.utils.CommonUtils;
+import org.bobba.tools.statest.utils.StatestCommonUtils;
 import com.jayway.restassured.response.Headers;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -26,7 +26,7 @@ public final class StatestUtils {
 
     public static void logRestCallStarted(int callStackRelativePosition) {
         if (LOGGER.isDebugEnabled()) {
-            final String message = CommonUtils.createCodePointer(callStackRelativePosition - 1);
+            final String message = StatestCommonUtils.createCodePointer(callStackRelativePosition - 1);
             LOGGER.debug(StringUtils.rightPad("******** REST CALL *****", message.length(), '*'));
             LOGGER.debug(message);
         }

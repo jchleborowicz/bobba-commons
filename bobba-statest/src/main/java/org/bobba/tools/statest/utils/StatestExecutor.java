@@ -35,7 +35,7 @@ import java.util.jar.JarFile;
 import static java.util.Comparator.comparing;
 import static java.util.stream.Collectors.toList;
 import static org.apache.commons.lang3.ArrayUtils.isEmpty;
-import static org.bobba.tools.statest.utils.CommonUtils.getClassAnnotation;
+import static org.bobba.tools.statest.utils.StatestCommonUtils.getClassAnnotation;
 
 public class StatestExecutor {
 

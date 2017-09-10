@@ -1,7 +1,7 @@
 package org.bobba.tools.statest.common.junit;
 
 import com.google.common.collect.ImmutableMap;
-import org.bobba.tools.statest.utils.CommonUtils;
+import org.bobba.tools.statest.utils.StatestCommonUtils;
 import org.bobba.tools.statest.common.StatestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.runners.model.FrameworkMethod;
@@ -35,7 +35,7 @@ public class InvokeStatestMethodStatement extends Statement {
 
     @Override
     public void evaluate() throws Throwable {
-        LOGGER.info("Invoking test method " + CommonUtils.createCodePointer(testMethod.getMethod()));
+        LOGGER.info("Invoking test method " + StatestCommonUtils.createCodePointer(testMethod.getMethod()));
         final Object[] params = calculateParameters();
 
         final Object result = testMethod.invokeExplosively(target, params);
@@ -50,7 +50,7 @@ public class InvokeStatestMethodStatement extends Statement {
 
         if (parameterTypes.length != parameterAnnotations.length) {
             throw new RuntimeException("Parameter types size not equal parameter annotations size for method "
-                    + CommonUtils.createCodePointer(method));
+                    + StatestCommonUtils.createCodePointer(method));
         }
 
         final Object[] result = new Object[parameterTypes.length];
@@ -59,7 +59,7 @@ public class InvokeStatestMethodStatement extends Statement {
                 result[i] = loadContextObject(parameterTypes[i], parameterAnnotations[i]);
             } catch (RuntimeException e) {
                 throw new RuntimeException("Exception when loading parameter for method "
-                        + CommonUtils.createCodePointer(method), e);
+                        + StatestCommonUtils.createCodePointer(method), e);
             }
         }
         return result;
@@ -105,7 +105,7 @@ public class InvokeStatestMethodStatement extends Statement {
     }
 
     private void storeResult(Object object, Method method) {
-        final Statest statestAnnotation = CommonUtils.getMethodAnnotation(method, Statest.class);
+        final Statest statestAnnotation = StatestCommonUtils.getMethodAnnotation(method, Statest.class);
         final String annotationObjectId =
                 statestAnnotation == null || StringUtils.isEmpty(statestAnnotation.storeResultIn()) ? null :
                         statestAnnotation.storeResultIn().trim();
@@ -114,7 +114,7 @@ public class InvokeStatestMethodStatement extends Statement {
             if (annotationObjectId != null) {
                 throw new RuntimeException(
                         "Marked test result storage (@Statest.storeResultIn) on method that returns void: " +
-                                CommonUtils.createCodePointer(method));
+                                StatestCommonUtils.createCodePointer(method));
             }
             return;
         }

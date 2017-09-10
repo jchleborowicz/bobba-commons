@@ -2,21 +2,21 @@ package org.bobba.tools.statest.utils;
 
 import org.junit.Test;
 
-public class CommonUtilsTest {
+public class StatestCommonUtilsTest {
 
     @Test
     public void checkObjectTypePassesWhenTypeIsAsExpected() {
-        CommonUtils.checkObjectType(1, Integer.class);
+        StatestCommonUtils.checkObjectType(1, Integer.class);
     }
 
     @Test
     public void checkObjectTypePassesWhenNullSourceObject() {
-        CommonUtils.checkObjectType(null, Integer.class);
+        StatestCommonUtils.checkObjectType(null, Integer.class);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void checkObjectTypeThrowsExceptionWhenUnexpectedType() {
-        CommonUtils.checkObjectType(1, Long.class);
+        StatestCommonUtils.checkObjectType(1, Long.class);
     }
 
 }

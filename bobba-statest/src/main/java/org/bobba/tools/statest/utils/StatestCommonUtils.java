@@ -14,9 +14,9 @@ import java.util.List;
 
 import static org.apache.commons.lang3.Validate.notNull;
 
-public final class CommonUtils {
+public final class StatestCommonUtils {
 
-    private CommonUtils() {
+    private StatestCommonUtils() {
     }
 
     public static void checkRequiredClassType(Class<?> aClass, Class<?> expectedType) {

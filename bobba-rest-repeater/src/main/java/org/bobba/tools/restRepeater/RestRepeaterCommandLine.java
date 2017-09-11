@@ -250,7 +250,7 @@ public class RestRepeaterCommandLine {
         }
     }
 
-    private class SystemModule {
+    public class SystemModule {
 
         @Command(names = {"h", "help"}, description = "Prints command list", appearsOnHistory = false)
         public void execute(String commandName, CommandLineOutput output) {

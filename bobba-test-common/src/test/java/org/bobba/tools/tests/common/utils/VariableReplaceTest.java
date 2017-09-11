@@ -1,16 +1,18 @@
 package org.bobba.tools.tests.common.utils;
 
-import com.google.common.collect.ImmutableMap;
 import org.junit.Test;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class VariableReplaceTest {
 
-    public static final ImmutableMap<String, String> VARIABLE_MAP = ImmutableMap.<String, String>builder()
-            .put("var1", "world")
-            .put("var2", "vampire")
-            .build();
+    public static final Map<String, String> VARIABLE_MAP = new HashMap<String, String>() {{
+        put("var1", "world");
+        put("var2", "vampire");
+    }};
 
     @Test
     public void correctlyReplacesVariablesWithCallback() {

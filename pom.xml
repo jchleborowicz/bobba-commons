@@ -44,8 +44,6 @@
         <module>bobba-identifiable-enum</module>
         <module>bobba-rest-repeater</module>
         <module>bobba-test-common</module>
-        <module>bobba-statest</module>
-        <module>bobba-statest-rest-assured-code-generator</module>
     </modules>
 
     <dependencyManagement>

@@ -1,5 +1,6 @@
-package org.bobba.tools.statest.common;
+package org.bobba.tools.tests.common.utils;
 
+import org.bobba.tools.tests.common.utils.PropertiesUtil;
 import org.junit.Test;
 
 import java.util.Properties;

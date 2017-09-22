@@ -1,6 +1,5 @@
-package org.bobba.tools.statest.common;
+package org.bobba.tools.tests.common.utils;
 
-import org.bobba.tools.tests.common.utils.VariableReplace;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

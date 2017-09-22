@@ -5,31 +5,15 @@ import javassist.CtClass;
 import javassist.CtMethod;
 import javassist.NotFoundException;
 import org.apache.commons.lang3.ClassUtils;
-import org.apache.commons.lang3.EnumUtils;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.apache.commons.lang3.Validate.notNull;
-
 public final class StatestCommonUtils {
 
     private StatestCommonUtils() {
-    }
-
-    public static void checkRequiredClassType(Class<?> aClass, Class<?> expectedType) {
-        notNull(aClass);
-        if (!expectedType.isAssignableFrom(aClass)) {
-            throw new IllegalArgumentException(
-                    "Class " + aClass.getName() + " should descend from class " + expectedType);
-        }
-    }
-
-    public static void checkRequiredObjectType(Object object, Class<?> expectedType) {
-        notNull(object);
-        checkObjectType(object, expectedType);
     }
 
     public static void checkObjectType(Object object, Class<?> expectedType) {
@@ -38,14 +22,6 @@ public final class StatestCommonUtils {
                     "Object is not of expected type. Expected: " + expectedType + ". Actual: "
                             + object.getClass());
         }
-    }
-
-    public static <T extends Enum<T>> T getEnum(Class<T> enumClass, String name) {
-        final T result = EnumUtils.getEnum(enumClass, name);
-        if (result == null) {
-            throw new IllegalArgumentException("Cannot find " + name + " in enum class " + enumClass.getName());
-        }
-        return result;
     }
 
     public static List<Method> getMethodsAnnotatedWith(Class<?> aClass, Class<?> annotationClass) {
@@ -133,13 +109,6 @@ public final class StatestCommonUtils {
         final StackTraceElement stackTraceElement =
                 Thread.currentThread().getStackTrace()[-callStackRelativePosition + 2];
         return createCodePointer(stackTraceElement);
-    }
-
-    /**
-     * Creates code pointer to calling line.
-     */
-    public static String createCodePointer() {
-        return createCodePointer(-1);
     }
 
 }

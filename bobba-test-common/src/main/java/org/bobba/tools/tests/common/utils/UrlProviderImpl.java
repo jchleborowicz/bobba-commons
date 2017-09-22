@@ -1,6 +1,7 @@
-package org.bobba.tools.statest.common;
+package org.bobba.tools.tests.common.utils;
 
 import org.apache.commons.lang3.StringUtils;
+import org.bobba.tools.tests.common.utils.UrlProvider;
 
 import static org.apache.commons.lang3.Validate.notEmpty;
 
